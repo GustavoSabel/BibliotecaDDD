@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Biblioteca.Data;
+using Biblioteca.Domain.LivroContext;
+using Biblioteca.Domain.LocacaoContext;
+using Biblioteca.Infra;
+using Biblioteca.Infra.Repository.LivroContext;
+using Biblioteca.Infra.Repository.LocacaoContext;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Biblioteca.Data;
-using Biblioteca.Infra;
-using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca
 {
@@ -29,7 +28,13 @@ namespace Biblioteca
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddTransient<IAutorRepository, AutorRepository>();
+            services.AddTransient<ILivroRepository, LivroRepository>();
+            services.AddTransient<IClienteRepository, ClienteRepository>();
+            services.AddTransient<ILocacaoRepository, LocacaoRepository>();
 
             services.AddDbContext<BibliotecaContext>(options => options.UseSqlServer(@"Server=.;Database=Biblioteca;Integrated Security=True"));
         }
@@ -55,6 +60,17 @@ namespace Biblioteca
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            MigrarBancoDados(app);
+        }
+
+        private static void MigrarBancoDados(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<BibliotecaContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }
