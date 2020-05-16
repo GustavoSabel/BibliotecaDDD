@@ -7,6 +7,7 @@ namespace Biblioteca.Infra.Configuration.Livro
     {
         public void Configure(EntityTypeBuilder<Domain.LivroContext.Livro> builder)
         {
+            builder.ToTable("Livro", schema: "Livro");
             builder.Property(x => x.Nome).HasMaxLength(300);
             builder.Property(x => x.Serial).HasMaxLength(50);
             builder.Property(x => x.Descricao).HasMaxLength(5000);

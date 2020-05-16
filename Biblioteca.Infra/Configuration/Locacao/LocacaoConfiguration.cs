@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Cryptography;
 
 namespace Biblioteca.Infra.Configuration.Locacao
 {
@@ -7,7 +8,8 @@ namespace Biblioteca.Infra.Configuration.Locacao
     {
         public void Configure(EntityTypeBuilder<Domain.LocacaoContext.Locacao> builder)
         {
-            builder.OwnsMany(x => x.Livros);
+            builder.ToTable("Locacao", schema: "Locacao");
+            builder.OwnsMany(x => x.Livros, x => x.ToTable("Livro", schema: "Locacao"));
         }
     }
 }

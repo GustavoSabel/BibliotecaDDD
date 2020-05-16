@@ -4,14 +4,16 @@ using Biblioteca.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    partial class BibliotecaContextModelSnapshot : ModelSnapshot
+    [Migration("20200516214824_Add-schemas")]
+    partial class Addschemas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +87,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasIndex("LivroId");
 
-                    b.ToTable("LivroAutor","Livro");
+                    b.ToTable("Livro","LivroAutor");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Cliente", b =>

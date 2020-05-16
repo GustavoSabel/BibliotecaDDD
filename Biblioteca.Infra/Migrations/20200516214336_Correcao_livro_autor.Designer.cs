@@ -4,14 +4,16 @@ using Biblioteca.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    partial class BibliotecaContextModelSnapshot : ModelSnapshot
+    [Migration("20200516214336_Correcao_livro_autor")]
+    partial class Correcao_livro_autor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Autor","Livro");
+                    b.ToTable("Autor");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.Livro", b =>
@@ -63,7 +65,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Livro","Livro");
+                    b.ToTable("Livro");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
@@ -85,7 +87,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasIndex("LivroId");
 
-                    b.ToTable("LivroAutor","Livro");
+                    b.ToTable("LivroAutor");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Cliente", b =>
@@ -97,7 +99,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cliente","Locacao");
+                    b.ToTable("Cliente");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Locacao", b =>
@@ -126,7 +128,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("Locacao","Locacao");
+                    b.ToTable("Locacao");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
@@ -172,7 +174,7 @@ namespace Biblioteca.Infra.Migrations
 
                             b1.HasKey("LocacaoId", "LivroId");
 
-                            b1.ToTable("Livro","Locacao");
+                            b1.ToTable("Livro1");
 
                             b1.WithOwner()
                                 .HasForeignKey("LocacaoId");

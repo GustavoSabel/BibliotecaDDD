@@ -20,7 +20,7 @@ namespace Biblioteca.Tests.LivroContexto
         {
             var livro = new Livro("Clean Code", new List<Autor>() { _autor1 });
             livro.Nome.Should().Be("Clean Code");
-            livro.Autores.Should().HaveCount(1).And.Contain(x => x.Nome == _autor1.Nome);
+            livro.Autores.Should().HaveCount(1).And.Contain(x => x.Autor.Nome == _autor1.Nome);
         }
 
         [Fact]

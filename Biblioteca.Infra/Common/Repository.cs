@@ -6,7 +6,7 @@ namespace Biblioteca.Infra.Common
 {
     public abstract class Repository<T> : IRepository<T> where T : AggregateRoot
     {
-        private readonly BibliotecaContext _context;
+        protected readonly BibliotecaContext _context;
 
         public Repository(BibliotecaContext context)
         {

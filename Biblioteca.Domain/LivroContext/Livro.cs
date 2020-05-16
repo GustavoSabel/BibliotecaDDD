@@ -7,13 +7,13 @@ namespace Biblioteca.Domain.LivroContext
 {
     public class Livro : AggregateRoot
     {
-        private List<Autor> _autores;
+        private List<LivroAutor> _autores;
 
         private Livro()
         {
-            Nome = "";
-            _autores = new List<Autor>();
-            Serial = "";
+            Nome = null!;
+            Serial = null!;
+            _autores = null!;
         }
 
         public Livro(string nome, IReadOnlyList<Autor> autores)
@@ -22,7 +22,7 @@ namespace Biblioteca.Domain.LivroContext
             Serial = Guid.NewGuid().ToString();
             Situacao = SituacaoLivro.Disponivel;
 
-            _autores = new List<Autor>();
+            _autores = new List<LivroAutor>();
             foreach (var autor in autores)
                 AddAutor(autor);
 
@@ -33,14 +33,14 @@ namespace Biblioteca.Domain.LivroContext
         public string Nome { get; private set; }
         public string Serial { get; private set; }
         public string Descricao { get; set; } = "";
-        public IReadOnlyList<Autor> Autores { get => _autores; private set => _autores = value.ToList(); }
+        public IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
         public SituacaoLivro Situacao { get; set; }
 
         public void AddAutor(Autor autor)
         {
             if (_autores.Any(x => x.Id == autor.Id))
                 throw new InvalidEntityException($"O Autor {autor.Nome} já está vinculado ao livro");
-            _autores.Add(autor);
+            _autores.Add(new LivroAutor(autor, this));
         }
 
         public void RemoverAutor(int autorId)
