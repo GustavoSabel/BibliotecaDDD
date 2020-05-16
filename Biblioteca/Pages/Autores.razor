@@ -1,0 +1,38 @@
+﻿@page "/autores"
+
+@using Biblioteca.Domain.LivroContext
+@inject IAutorRepository Repository
+
+<h3>Autores</h3>
+
+@if (autores == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Autor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var autor in autores)
+            {
+                <tr>
+                    <td>@autor.Nome</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Autor[] autores;
+
+    protected override async Task OnInitializedAsync()
+    {
+        autores = (await Repository.ObterTodosAsync()).ToArray();
+    }
+}
