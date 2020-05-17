@@ -1,5 +1,4 @@
 ﻿using Biblioteca.Domain.Common;
-using System;
 using System.Threading.Tasks;
 
 namespace Biblioteca.Infra.Common
@@ -13,7 +12,7 @@ namespace Biblioteca.Infra.Common
             _context = context;
         }
 
-        public ValueTask<T?> GetById(long id)
+        public ValueTask<T?> GetById(int id)
         {
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
             return _context.Set<T>().FindAsync(id);

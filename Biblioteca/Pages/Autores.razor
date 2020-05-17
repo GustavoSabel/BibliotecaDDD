@@ -1,6 +1,7 @@
 ﻿@page "/autores"
 
 @using Biblioteca.Domain.LivroContext
+@using System.Linq
 @inject IAutorRepository Repository
 
 <h3>Autores</h3>
@@ -14,14 +15,22 @@ else
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Autor</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var autor in autores)
             {
                 <tr>
+                    <td>@autor.Id</td>
                     <td>@autor.Nome</td>
+                    <td>
+                        <a href="@($"autordetalhe/{autor.Id}")" class="btn btn-primary table-bordered">
+                            Abrir
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

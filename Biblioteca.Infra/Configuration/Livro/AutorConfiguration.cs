@@ -9,6 +9,16 @@ namespace Biblioteca.Infra.Configuration.Livro
         {
             builder.ToTable("Autor", schema: "Livro");
             builder.Property(x => x.Nome).HasMaxLength(300);
+
+            builder.HasData(
+                new Domain.LivroContext.Autor("Robert Cecil Martin") { Id = 1 },
+                new Domain.LivroContext.Autor("Eric Evans") { Id = 2 },
+                new Domain.LivroContext.Autor("vaughn vernon") { Id = 3 },
+                new Domain.LivroContext.Autor("Erich Gamma") { Id = 4 },
+                new Domain.LivroContext.Autor("John Vlissides") { Id = 5 },
+                new Domain.LivroContext.Autor("Richard Helm") { Id = 6 },
+                new Domain.LivroContext.Autor("Ralph Johnson") { Id = 7 }
+            );
         }
     }
 }

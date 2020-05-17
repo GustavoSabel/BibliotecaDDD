@@ -1,0 +1,19 @@
+﻿@page "/autordetalhe/{id:int}"
+@inherits AutorDetalheBase
+
+<h1 class="page-title">Autor</h1>
+
+@if (@Autor == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <b>Nome: </b>
+        @Autor.Nome
+        <br />
+        <b>Id: </b>
+        @Autor.Id
+    </div>
+}

@@ -4,7 +4,7 @@ namespace Biblioteca.Domain.Common
 {
     public interface IRepository<T> where T : AggregateRoot
     {
-        ValueTask<T?> GetById(long id);
+        ValueTask<T?> GetById(int id);
         Task Save(T aggregateRoot);
     }
 }
