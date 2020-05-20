@@ -1,22 +1,20 @@
 ﻿using Biblioteca.Services;
 using Microsoft.AspNetCore.Components;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Biblioteca.Pages
 {
-    public class AutorDetalheBase : ComponentBase
+    public class AutoresBase : ComponentBase
     {
         [Inject]
         public AutorService AutorService { get; set; }
 
-        [Parameter]
-        public int Id { get; set; }
-
-        public AutorModel Autor { get; private set; }
+        protected AutorModel[] autores;
 
         protected override async Task OnInitializedAsync()
         {
-            Autor = await AutorService.ObterPorId(Id);
+            autores = (await AutorService.ObterAutores()).ToArray();
         }
     }
 }

@@ -16,9 +16,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Biblioteca.Domain\Biblioteca.Domain.csproj" />
-    <ProjectReference Include="..\Biblioteca.Infra\Biblioteca.Infra.csproj" />
-  </ItemGroup>
-
 </Project>

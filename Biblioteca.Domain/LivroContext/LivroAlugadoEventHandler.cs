@@ -16,12 +16,12 @@ namespace Biblioteca.Domain.LivroContext
 
         public async Task HandleAsync(LivroAlugadoEvent domainEvent)
         {
-            var livro = await _livroRepository.GetById(domainEvent.LivroId);
+            var livro = await _livroRepository.ObterPorId(domainEvent.LivroId);
             if (livro is null)
                 throw new Exception($"Livro {domainEvent.LivroId} não encontrado");
 
             livro.Situacao = SituacaoLivro.Disponivel;
-            await _livroRepository.Save(livro);
+            await _livroRepository.Salvar(livro);
         }
     }
 }

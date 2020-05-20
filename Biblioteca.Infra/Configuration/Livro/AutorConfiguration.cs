@@ -8,7 +8,7 @@ namespace Biblioteca.Infra.Configuration.Livro
         public void Configure(EntityTypeBuilder<Domain.LivroContext.Autor> builder)
         {
             builder.ToTable("Autor", schema: "Livro");
-            builder.Property(x => x.Nome).HasMaxLength(300);
+            builder.Property(x => x.Nome).HasMaxLength(Domain.LivroContext.Autor.TamanhoMaxNome);
 
             builder.HasData(
                 new Domain.LivroContext.Autor("Robert Cecil Martin") { Id = 1 },

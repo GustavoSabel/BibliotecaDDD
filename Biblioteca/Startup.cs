@@ -1,12 +1,6 @@
-using Biblioteca.Data;
-using Biblioteca.Domain.LivroContext;
-using Biblioteca.Domain.LocacaoContext;
-using Biblioteca.Infra;
-using Biblioteca.Infra.Repository.LivroContext;
-using Biblioteca.Infra.Repository.LocacaoContext;
+using Biblioteca.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,15 +22,7 @@ namespace Biblioteca
         {
             services.AddRazorPages();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-
-            services.AddSingleton<WeatherForecastService>();
-
-            services.AddTransient<IAutorRepository, AutorRepository>();
-            services.AddTransient<ILivroRepository, LivroRepository>();
-            services.AddTransient<IClienteRepository, ClienteRepository>();
-            services.AddTransient<ILocacaoRepository, LocacaoRepository>();
-
-            services.AddDbContext<BibliotecaContext>(options => options.UseSqlServer(@"Server=.;Database=Biblioteca;Integrated Security=True"));
+            services.AddHttpClient<AutorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,17 +46,6 @@ namespace Biblioteca
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-
-            MigrarBancoDados(app);
-        }
-
-        private static void MigrarBancoDados(IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<BibliotecaContext>();
-                context.Database.Migrate();
-            }
         }
     }
 }
