@@ -5,31 +5,32 @@
 
 @if (Autores == null)
 {
-    <p><em>Loading...</em></p>
+<p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Autor</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var autor in Autores)
-            {
-                <tr>
-                    <td>@autor.Id</td>
-                    <td>@autor.Nome</td>
-                    <td>
-                        <a href="@($"autordetalhe/{autor.Id}")" class="btn btn-primary table-bordered">
-                            Abrir
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<a href="@($"autoredicao/0")" class="btn btn-primary">Novo</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Autor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var autor in Autores)
+        {
+        <tr>
+            <td>@autor.Id</td>
+            <td>@autor.Nome</td>
+            <td>
+                <a href="@($"autoredicao/{autor.Id}")" class="btn btn-primary table-bordered">
+                    Abrir
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
 }

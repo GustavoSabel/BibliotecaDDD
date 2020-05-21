@@ -1,0 +1,34 @@
+﻿@page "/autoredicao/{id:int}"
+@inherits AutorEdicaoBase
+
+<h1 class="page-title">Autor</h1>
+
+@if (@Autor == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div>
+    @if (Autor.Id == 0)
+    {
+        <b>Novo</b>
+    }
+    else
+    {
+        <b>Id: </b> @Autor.Id
+    }
+    <br />
+    <input id="nome" @bind="@Autor.Nome" @bind:event="oninput" />
+    <br />
+    <button @onclick="Salvar_Click" class="btn btn-primary">Salvar</button>
+
+    @if (Autor.Id > 0)
+    {
+        <button @onclick="Excluir_Click" class="btn btn-warning">Excluir</button>
+    }
+    <br />
+    <br />
+    <a href="Autores">Voltar</a>
+</div>
+}

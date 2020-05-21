@@ -11,5 +11,14 @@ namespace Biblioteca.Services
 
         [Get("/api/autor/{id}")]
         Task<AutorModel> ObterPorId(int id);
+
+        [Post("/api/autor")]
+        Task<AutorModel> Post([Body] AutorModel autor);
+
+        [Put("/api/autor/{id}")]
+        Task Put(int id, [Body] AutorModel autor);
+
+        [Delete("/api/autor/{id}")]
+        Task Delete(int id);
     }
 }

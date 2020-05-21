@@ -1,4 +1,5 @@
-﻿using Biblioteca.Domain.LivroContext;
+﻿using Biblioteca.Api.Dtos;
+using Biblioteca.Domain.LivroContext;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,14 +30,15 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Autor autor)
+        public async Task<Autor> Post([FromBody] SalvarAutorDto autorDto)
         {
+            var autor = new Autor(autorDto.Nome);
             await _autorRepository.Salvar(autor);
-            return NoContent();
+            return autor;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Autor autorAlterado)
+        public async Task<IActionResult> Put(int id, [FromBody] SalvarAutorDto autorAlterado)
         {
             var autor = await _autorRepository.ObterPorId(id);
             autor.SetNome(autorAlterado.Nome);
