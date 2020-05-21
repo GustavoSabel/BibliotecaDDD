@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using Biblioteca.Api.Dtos;
+using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,10 +14,10 @@ namespace Biblioteca.Services
         Task<AutorModel> ObterPorId(int id);
 
         [Post("/api/autor")]
-        Task<AutorModel> Post([Body] AutorModel autor);
+        Task<AutorModel> Post([Body] SalvarAutorDto autor);
 
         [Put("/api/autor/{id}")]
-        Task Put(int id, [Body] AutorModel autor);
+        Task Put(int id, [Body] AtualizarAutorDto autor);
 
         [Delete("/api/autor/{id}")]
         Task Delete(int id);

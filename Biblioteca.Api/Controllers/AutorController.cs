@@ -38,7 +38,7 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] SalvarAutorDto autorAlterado)
+        public async Task<IActionResult> Put(int id, [FromBody] AtualizarAutorDto autorAlterado)
         {
             var autor = await _autorRepository.ObterPorId(id);
             autor.SetNome(autorAlterado.Nome);

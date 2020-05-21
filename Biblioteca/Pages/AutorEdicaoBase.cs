@@ -1,4 +1,5 @@
-﻿using Biblioteca.Services;
+﻿using Biblioteca.Api.Dtos;
+using Biblioteca.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -28,9 +29,9 @@ namespace Biblioteca.Pages
         public async void Salvar_Click()
         {
             if (Autor.Id > 0)
-                await AutorService.Put(Autor.Id, Autor);
+                await AutorService.Put(Autor.Id, new AtualizarAutorDto { Nome = Autor.Nome });
             else
-                Autor = await AutorService.Post(Autor);
+                Autor = await AutorService.Post(new SalvarAutorDto { Nome = Autor.Nome });
 
             NavManager.NavigateTo("/Autores");
         }
