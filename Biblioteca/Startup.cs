@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Refit;
 
 namespace Biblioteca
 {
@@ -22,7 +23,10 @@ namespace Biblioteca
         {
             services.AddRazorPages();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-            services.AddHttpClient<AutorService>();
+
+            services
+                .AddRefitClient<IAutorService>()
+                .ConfigureHttpClient(c => c.BaseAddress = new System.Uri("http://localhost:5000"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

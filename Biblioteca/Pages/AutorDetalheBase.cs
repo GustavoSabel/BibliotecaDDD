@@ -7,7 +7,7 @@ namespace Biblioteca.Pages
     public class AutorDetalheBase : ComponentBase
     {
         [Inject]
-        public AutorService AutorService { get; set; }
+        public IAutorService AutorService { get; set; }
 
         [Parameter]
         public int Id { get; set; }

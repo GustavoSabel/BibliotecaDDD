@@ -8,7 +8,7 @@ namespace Biblioteca.Pages
     public class AutoresBase : ComponentBase
     {
         [Inject]
-        public AutorService AutorService { get; set; }
+        public IAutorService AutorService { get; set; }
 
         protected AutorModel[] autores;
 
