@@ -1,4 +1,4 @@
-﻿namespace Biblioteca
+﻿namespace Biblioteca.Blazor.Model
 {
     public class AutorModel
     {

@@ -1,9 +1,10 @@
 ﻿using Biblioteca.Api.Dtos;
+using Biblioteca.Blazor.Model;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Biblioteca.Services
+namespace Biblioteca.Blazor.Services
 {
     public interface IAutorService
     {

@@ -1,9 +1,10 @@
-﻿using Biblioteca.Services;
+﻿using Biblioteca.Blazor.Model;
+using Biblioteca.Blazor.Services;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Biblioteca.Pages
+namespace Biblioteca.Blazor.Pages
 {
     public class AutoresBase : ComponentBase
     {
