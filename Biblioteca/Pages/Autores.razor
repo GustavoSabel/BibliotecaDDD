@@ -3,7 +3,7 @@
 
 <h3>Autores</h3>
 
-@if (autores == null)
+@if (Autores == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -18,7 +18,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var autor in autores)
+            @foreach (var autor in Autores)
             {
                 <tr>
                     <td>@autor.Id</td>

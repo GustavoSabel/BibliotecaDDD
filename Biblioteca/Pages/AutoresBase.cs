@@ -10,11 +10,11 @@ namespace Biblioteca.Pages
         [Inject]
         public IAutorService AutorService { get; set; }
 
-        protected AutorModel[] autores;
+        public AutorModel[] Autores { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
-            autores = (await AutorService.ObterAutores()).ToArray();
+            Autores = (await AutorService.ObterAutores()).ToArray();
         }
     }
 }
