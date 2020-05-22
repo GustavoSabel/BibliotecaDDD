@@ -32,7 +32,7 @@ namespace Biblioteca.Api.Controllers
         [HttpPost]
         public async Task<Autor> Post([FromBody] SalvarAutorDto autorDto)
         {
-            var autor = new Autor(autorDto.Nome);
+            var autor = new Autor(autorDto.Nome, autorDto.DataNascimento);
             await _autorRepository.Salvar(autor);
             return autor;
         }
@@ -42,6 +42,7 @@ namespace Biblioteca.Api.Controllers
         {
             var autor = await _autorRepository.ObterPorId(id);
             autor.SetNome(autorAlterado.Nome);
+            autor.SetDataNascimento(autorAlterado.DataNascimento);
             await _autorRepository.Salvar(autor);
             return NoContent();
         }

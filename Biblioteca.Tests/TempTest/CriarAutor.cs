@@ -8,7 +8,7 @@ namespace Biblioteca.Tests.TempTest
         [Fact]
         public void Teste()
         {
-            _dbContext.Set<Autor>().Add(new Autor("Teste"));
+            _dbContext.Set<Autor>().Add(new Autor("Teste", new System.DateTime(2000, 1, 1)));
             _dbContext.SaveChanges();
         }
     }

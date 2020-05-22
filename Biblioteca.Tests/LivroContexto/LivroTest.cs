@@ -12,7 +12,7 @@ namespace Biblioteca.Tests.LivroContexto
 
         public LivroTest()
         {
-            _autor1 = new Autor("Robert Cecil Martin");
+            _autor1 = new Autor("Robert Cecil Martin", new DateTime(2000, 1, 1));
         }
 
         [Fact]

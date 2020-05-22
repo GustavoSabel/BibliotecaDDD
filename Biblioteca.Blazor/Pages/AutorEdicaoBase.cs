@@ -40,13 +40,21 @@ namespace Biblioteca.Blazor.Pages
             {
                 if (Autor.Id > 0)
                 {
-                    await AutorService.Put(Autor.Id, new AtualizarAutorDto { Nome = Autor.Nome });
+                    await AutorService.Put(Autor.Id, new AtualizarAutorDto
+                    {
+                        Nome = Autor.Nome,
+                        DataNascimento = Autor.DataNascimento
+                    });
                     Mensagem = "Salvo com sucesso!";
                     MensagemStatus = "alert-success";
                 }
                 else
                 {
-                    Autor = await AutorService.Post(new SalvarAutorDto { Nome = Autor.Nome });
+                    Autor = await AutorService.Post(new SalvarAutorDto
+                    {
+                        Nome = Autor.Nome,
+                        DataNascimento = Autor.DataNascimento
+                    });
                     Mensagem = "Salvo com sucesso!";
                     MensagemStatus = "alert-success";
                 }
