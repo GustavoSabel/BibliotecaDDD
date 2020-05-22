@@ -1,4 +1,5 @@
-﻿@page "/autoredicao/{id:int}"
+﻿@page "/autoredicao"
+@page "/autoredicao/{id:int}"
 @inherits AutorEdicaoBase
 
 <h1 class="page-title">Autor</h1>
@@ -9,26 +10,39 @@
 }
 else
 {
-<div>
-    @if (Autor.Id == 0)
-    {
-        <b>Novo</b>
-    }
-    else
-    {
-        <b>Id: </b> @Autor.Id
-    }
-    <br />
-    <input id="nome" @bind="@Autor.Nome" @bind:event="oninput" />
-    <br />
-    <button @onclick="Salvar_Click" class="btn btn-primary">Salvar</button>
+    <div>
+        @if (Autor.Id == 0)
+        {
+            <b>Novo</b>
+        }
+        else
+        {
+            <b>Id: </b> @Autor.Id
+        }
+        <br />
 
-    @if (Autor.Id > 0)
-    {
-        <button @onclick="Excluir_Click" class="btn btn-warning">Excluir</button>
-    }
-    <br />
-    <br />
-    <a href="Autores">Voltar</a>
-</div>
+        <EditForm Model="@Autor" OnValidSubmit="@HandleValidSubmit">
+            <div class="form-group row">
+                <label for="nome" class="col-sm-3">Nome:</label>
+                <InputText @bind-Value="@Autor.Nome" id="nome" class="form-control col-sm-8"></InputText>
+
+                <label for="dataNascimento" class="col-sm-3">Data Nascimento:</label>
+                <InputDate @bind-Value="@Autor.DataNascimento" id="dataNascimento" class="form-control col-sm-8"></InputDate>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            @if (Autor.Id > 0)
+            {
+                <button @onclick="Excluir_Click" class="btn btn-danger">Excluir</button>
+            }
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(Mensagem))
+        {
+            <div class="alert @MensagemStatus">@Mensagem</div>
+        }
+
+        <br />
+        <br />
+        <a href="Autores">Voltar</a>
+    </div>
 }
