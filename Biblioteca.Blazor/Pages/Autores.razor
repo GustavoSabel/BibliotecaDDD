@@ -5,32 +5,32 @@
 
 @if (Autores == null)
 {
-<p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-<a href="@($"autoredicao")" class="btn btn-primary">Novo</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Autor</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var autor in Autores)
-        {
-        <tr>
-            <td>@autor.Id</td>
-            <td>@autor.Nome</td>
-            <td>
-                <a href="@($"autoredicao/{autor.Id}")" class="btn btn-primary table-bordered">
-                    Abrir
-                </a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <button @onclick="AddAutor" class="btn btn-primary">Novo</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Autor</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var autor in Autores)
+            {
+                <tr>
+                    <td>@autor.Id</td>
+                    <td>@autor.Nome</td>
+                    <td>
+                        <button @onclick="() => EditarAutor(autor)" class="btn btn-primary">Editar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <EditAutorDialog @ref="EditAutorDialog" SalvoEventCallback="EditAutorDialog_Salvo" ExcluidoEventCallback="EditAutordialog_Excluido"></EditAutorDialog>
 }

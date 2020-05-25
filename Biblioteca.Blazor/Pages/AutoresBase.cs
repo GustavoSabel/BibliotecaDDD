@@ -1,6 +1,8 @@
-﻿using Biblioteca.Blazor.Model;
+﻿using Biblioteca.Blazor.Components;
+using Biblioteca.Blazor.Model;
 using Biblioteca.Blazor.Services;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +13,50 @@ namespace Biblioteca.Blazor.Pages
         [Inject]
         public IAutorService AutorService { get; set; }
 
-        public AutorModel[] Autores { get; private set; }
+        public List<AutorModel> Autores { get; private set; }
+
+        protected EditAutorDialog EditAutorDialog { get; set; }
+
+        public int AutorEditarId { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Autores = (await AutorService.ObterAutores()).ToArray();
+            Autores = (await AutorService.ObterAutores()).ToList();
+        }
+
+        protected async Task AddAutor()
+        {
+            await EditAutorDialog.Show();
+        }
+
+        public async Task EditarAutor(AutorModel autor)
+        {
+            await EditAutorDialog.Show(autor.Id);
+        }
+
+        protected void EditAutorDialog_Salvo(AutorModel autor)
+        {
+            var index = Autores.FindIndex(x => x.Id == autor.Id);
+            if (index < 0)
+            {
+                Autores.Add(autor);
+            }
+            else
+            {
+                Autores.RemoveAt(index);
+                Autores.Insert(index, autor);
+            }
+            StateHasChanged();
+        }
+
+        protected void EditAutordialog_Excluido(AutorModel autor)
+        {
+            var index = Autores.FindIndex(x => x.Id == autor.Id);
+            if (index > 0)
+            {
+                Autores.RemoveAt(index);
+                StateHasChanged();
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Biblioteca.Blazor.Pages
 
         [Parameter] public int? Id { get; set; }
 
-        public AutorModel Autor { get; private set; }
+        public AutorModel Autor { get; private set; } 
 
         protected override async Task OnInitializedAsync()
         {
