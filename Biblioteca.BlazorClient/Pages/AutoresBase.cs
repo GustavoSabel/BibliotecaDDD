@@ -1,6 +1,6 @@
-﻿using Biblioteca.BlazorClient.Components;
-using Biblioteca.BlazorClient.Model;
+﻿using Biblioteca.BlazorClient.Model;
 using Biblioteca.BlazorClient.Services;
+using Biblioteca.BlazorClient.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;

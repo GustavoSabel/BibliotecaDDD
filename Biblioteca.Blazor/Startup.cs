@@ -1,4 +1,4 @@
-using Biblioteca.Blazor.Services;
+using Biblioteca.BlazorClient.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Refit;
 
-namespace Biblioteca.Blazor
+namespace Biblioteca.BlazorClient
 {
     public class Startup
     {
