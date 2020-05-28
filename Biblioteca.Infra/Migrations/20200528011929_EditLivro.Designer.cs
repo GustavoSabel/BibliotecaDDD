@@ -4,14 +4,16 @@ using Biblioteca.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    partial class BibliotecaContextModelSnapshot : ModelSnapshot
+    [Migration("20200528011929_EditLivro")]
+    partial class EditLivro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,50 +39,6 @@ namespace Biblioteca.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Autor","Livro");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DataNascimento = new DateTime(1952, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Robert Cecil Martin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DataNascimento = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Eric Evans"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DataNascimento = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Vaughn Vernon"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DataNascimento = new DateTime(1961, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Erich Gamma"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DataNascimento = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "John Vlissides"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DataNascimento = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Richard Helm"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DataNascimento = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nome = "Ralph Johnson"
-                        });
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.Livro", b =>
@@ -118,85 +76,6 @@ namespace Biblioteca.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Livro","Livro");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Ano = 2002,
-                            Descricao = "",
-                            Serial = "0000000001",
-                            Situacao = 0,
-                            Titulo = "Agile Software Development, Principles, Patterns, and Practices"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Ano = 2009,
-                            Descricao = "",
-                            Serial = "0000000002",
-                            Situacao = 0,
-                            SubTitulo = "A Handbook of Agile Software Craftsmanship",
-                            Titulo = "Clean Code"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Ano = 2011,
-                            Descricao = "",
-                            Serial = "0000000003",
-                            Situacao = 0,
-                            SubTitulo = "A Code Of Conduct For Professional Programmers",
-                            Titulo = "The Clean Coder"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Ano = 2017,
-                            Descricao = "",
-                            Serial = "0000000004",
-                            Situacao = 0,
-                            SubTitulo = "A Craftsman's Guide to Software Structure and Design",
-                            Titulo = "Clean Architecture"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Ano = 2019,
-                            Descricao = "",
-                            Serial = "0000000005",
-                            Situacao = 0,
-                            SubTitulo = "Back to Basics",
-                            Titulo = "Clean Agile"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Ano = 2003,
-                            Descricao = "",
-                            Serial = "0000000006",
-                            Situacao = 0,
-                            SubTitulo = "Tackling Complexity in the Heart of Software",
-                            Titulo = "Domain-Driven Design"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Ano = 2013,
-                            Descricao = "",
-                            Serial = "0000000007",
-                            Situacao = 0,
-                            Titulo = "Implementing Domain-Driven Design"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Ano = 2016,
-                            Descricao = "",
-                            Serial = "0000000008",
-                            Situacao = 0,
-                            Titulo = "Domain-Driven Design Distilled"
-                        });
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
@@ -219,56 +98,6 @@ namespace Biblioteca.Infra.Migrations
                     b.HasIndex("LivroId");
 
                     b.ToTable("LivroAutor","Livro");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AutorId = 1,
-                            LivroId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AutorId = 1,
-                            LivroId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AutorId = 1,
-                            LivroId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AutorId = 1,
-                            LivroId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AutorId = 1,
-                            LivroId = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AutorId = 2,
-                            LivroId = 6
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AutorId = 3,
-                            LivroId = 7
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AutorId = 3,
-                            LivroId = 8
-                        });
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Cliente", b =>

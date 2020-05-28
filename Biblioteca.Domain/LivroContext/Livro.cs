@@ -11,14 +11,18 @@ namespace Biblioteca.Domain.LivroContext
 
         private Livro()
         {
-            Nome = null!;
+            Titulo = null!;
             Serial = null!;
             _autores = null!;
+            SubTitulo = null!;
+            Descricao = null!;
         }
 
-        public Livro(string nome, IReadOnlyList<Autor> autores)
+        public Livro(string titulo, string? subTitulo, int ano, IEnumerable<Autor> autores)
         {
-            Nome = nome;
+            Titulo = titulo;
+            SubTitulo = subTitulo;
+            Ano = ano;
             Serial = Guid.NewGuid().ToString();
             Situacao = SituacaoLivro.Disponivel;
 
@@ -30,11 +34,13 @@ namespace Biblioteca.Domain.LivroContext
                 throw new InvalidEntityException("É obrigatório informar pelo menos um autor");
         }
 
-        public string Nome { get; private set; }
-        public string Serial { get; private set; }
-        public string Descricao { get; set; } = "";
-        public IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
+        public string Titulo { get; set; }
+        public string? SubTitulo { get; set; }
+        public int Ano { get; set; }
+        public string Serial { get; set; }
+        public string? Descricao { get; set; }
         public SituacaoLivro Situacao { get; set; }
+        public IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
 
         public void AddAutor(Autor autor)
         {

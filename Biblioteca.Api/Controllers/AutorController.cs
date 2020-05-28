@@ -26,31 +26,31 @@ namespace Biblioteca.Api.Controllers
         [HttpGet("{id}")]
         public ValueTask<Autor> Get(int id)
         {
-            return _autorRepository.ObterPorId(id);
+            return _autorRepository.ObterPorIdAsync(id);
         }
 
         [HttpPost]
         public async Task<Autor> Post([FromBody] SalvarAutorDto autorDto)
         {
             var autor = new Autor(autorDto.Nome, autorDto.DataNascimento);
-            await _autorRepository.Salvar(autor);
+            await _autorRepository.SalvarAsync(autor);
             return autor;
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] AtualizarAutorDto autorAlterado)
         {
-            var autor = await _autorRepository.ObterPorId(id);
+            var autor = await _autorRepository.ObterPorIdAsync(id);
             autor.SetNome(autorAlterado.Nome);
             autor.SetDataNascimento(autorAlterado.DataNascimento);
-            await _autorRepository.Salvar(autor);
+            await _autorRepository.SalvarAsync(autor);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _autorRepository.Excluir(id);
+            await _autorRepository.ExcluirAsync(id);
             return NoContent();
         }
     }
