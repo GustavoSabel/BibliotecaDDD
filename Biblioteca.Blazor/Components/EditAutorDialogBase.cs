@@ -1,10 +1,11 @@
 ﻿using Biblioteca.Api.Dtos;
-using Biblioteca.BlazorClient.Model;
-using Biblioteca.BlazorClient.Services;
+using Biblioteca.Blazor.Components;
+using Biblioteca.Blazor.Model;
+using Biblioteca.Blazor.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace Biblioteca.BlazorClient.Components
+namespace Biblioteca.Blazor.Components
 {
     public class EditAutorDialogBase : ComponentBase
     {

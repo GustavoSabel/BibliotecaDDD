@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Biblioteca.BlazorClient.Components
+namespace Biblioteca.Blazor.Components
 {
     public abstract class EditDialogBase : ComponentBase
     {

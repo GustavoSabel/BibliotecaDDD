@@ -1,11 +1,11 @@
 ﻿using Biblioteca.Api.Dtos;
-using Biblioteca.BlazorClient.Model;
-using Biblioteca.BlazorClient.Services;
+using Biblioteca.Blazor.Model;
+using Biblioteca.Blazor.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
-namespace Biblioteca.BlazorClient.Pages
+namespace Biblioteca.Blazor.Pages
 {
     public class AutorEdicaoBase : ComponentBase
     {

@@ -1,12 +1,12 @@
-﻿using Biblioteca.BlazorClient.Components;
-using Biblioteca.BlazorClient.Model;
-using Biblioteca.BlazorClient.Services;
+﻿using Biblioteca.Blazor.Components;
+using Biblioteca.Blazor.Model;
+using Biblioteca.Blazor.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Biblioteca.BlazorClient.Pages
+namespace Biblioteca.Blazor.Pages
 {
     public class AutoresBase : ComponentBase
     {

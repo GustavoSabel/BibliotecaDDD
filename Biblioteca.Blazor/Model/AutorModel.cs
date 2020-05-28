@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Biblioteca.BlazorClient.Model
+namespace Biblioteca.Blazor.Model
 {
     public class AutorModel
     {

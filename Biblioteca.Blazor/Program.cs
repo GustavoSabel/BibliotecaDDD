@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Biblioteca.BlazorClient
+namespace Biblioteca.Blazor
 {
     public class Program
     {

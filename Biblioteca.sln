@@ -18,9 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Infra", "Bibliot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Api", "Biblioteca.Api\Biblioteca.Api.csproj", "{34E1CBFE-FB78-47F1-BC04-AD887CC93AF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.BlazorClient", "Biblioteca.BlazorClient\Biblioteca.BlazorClient.csproj", "{376548C0-E893-4819-9658-6981E0CAF428}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.BlazorClient", "Biblioteca.BlazorClient\Biblioteca.BlazorClient.csproj", "{376548C0-E893-4819-9658-6981E0CAF428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Api.Dto", "Biblioteca.Api.Dto\Biblioteca.Api.Dto.csproj", "{A1F666C3-47F3-4EFB-AE8F-E9AAA1DF1054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Api.Dto", "Biblioteca.Api.Dto\Biblioteca.Api.Dto.csproj", "{A1F666C3-47F3-4EFB-AE8F-E9AAA1DF1054}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
