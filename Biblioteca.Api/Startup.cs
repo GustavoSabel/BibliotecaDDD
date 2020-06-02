@@ -9,17 +9,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Biblioteca.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironmen)
         {
             Configuration = configuration;
+            WebHostEnvironmen = webHostEnvironmen;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironmen { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -30,7 +33,22 @@ namespace Biblioteca.Api
             services.AddTransient<IClienteRepository, ClienteRepository>();
             services.AddTransient<ILocacaoRepository, LocacaoRepository>();
 
-            services.AddDbContext<BibliotecaContext>(options => options.UseSqlServer(@"Server=.;Database=Biblioteca;Integrated Security=True"));
+            services.AddDbContext<BibliotecaContext>(options =>
+            {
+                options.UseSqlServer(@"Server=.;Database=Biblioteca;Integrated Security=True");
+
+                if (WebHostEnvironmen.IsDevelopment())
+                {
+                    var logger = LoggerFactory.Create(builder =>
+                    {
+                        builder.AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information);
+                        builder.AddConsole();
+                    });
+                    options
+                        .UseLoggerFactory(logger)
+                        .EnableSensitiveDataLogging();
+                }
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
