@@ -55,6 +55,9 @@ namespace Biblioteca.Domain.LivroContext
             if (autor is null)
                 throw new InvalidEntityException($"Autor {autorId} não encontrado no livro");
 
+            if (_autores.Count == 1)
+                throw new Exception("Livro não pode ficar sem autores");
+
             _autores.Remove(autor);
         }
     }
