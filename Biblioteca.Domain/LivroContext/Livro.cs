@@ -9,7 +9,7 @@ namespace Biblioteca.Domain.LivroContext
     {
         private List<LivroAutor> _autores;
 
-        private Livro()
+        protected Livro()
         {
             Titulo = null!;
             Serial = null!;
@@ -40,7 +40,7 @@ namespace Biblioteca.Domain.LivroContext
         public string Serial { get; set; }
         public string? Descricao { get; set; }
         public SituacaoLivro Situacao { get; set; }
-        public IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
+        public virtual IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
 
         public void AddAutor(Autor autor)
         {

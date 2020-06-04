@@ -29,8 +29,8 @@ namespace Biblioteca.Domain.LocacaoContext
         public DateTime DataLocacao { get; private set; }
         public DateTime DataPrevistaDevolucao { get; private set; }
         public DateTime? DataDevolucao { get; private set; }
-        public Cliente Cliente { get; private set; }
-        public IReadOnlyList<Livro> Livros { get; private set; }
+        public virtual Cliente Cliente { get; private set; }
+        public virtual IReadOnlyList<Livro> Livros { get; private set; }
         public bool TeveMulta { get; private set; }
 
         public void Devolver(DateTime dataDevolucao)

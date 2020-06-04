@@ -4,7 +4,7 @@ namespace Biblioteca.Domain.LivroContext
 {
     public class LivroAutor : Entity
     {
-        private LivroAutor()
+        protected LivroAutor()
         {
             Autor = null!;
             Livro = null!;
@@ -16,7 +16,7 @@ namespace Biblioteca.Domain.LivroContext
             Livro = livro;
         }
 
-        public Autor Autor { get; private set; }
-        public Livro Livro { get; private set; }
+        public virtual Autor Autor { get; }
+        public virtual Livro Livro { get; }
     }
 }

@@ -35,19 +35,7 @@ namespace Biblioteca.Api
 
             services.AddDbContext<BibliotecaContext>(options =>
             {
-                options.UseSqlServer(@"Server=.;Database=Biblioteca;Integrated Security=True");
-
-                if (WebHostEnvironmen.IsDevelopment())
-                {
-                    var logger = LoggerFactory.Create(builder =>
-                    {
-                        builder.AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information);
-                        builder.AddConsole();
-                    });
-                    options
-                        .UseLoggerFactory(logger)
-                        .EnableSensitiveDataLogging();
-                }
+                BibliotecaContext.Configurar(options, @"Server=.;Database=Biblioteca;Integrated Security=True", WebHostEnvironmen.IsDevelopment());
             });
         }
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20200528225443_SeedLivros")]
-    partial class SeedLivros
+    [Migration("20200604002855_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace Biblioteca.Infra.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(300)")
+                        .HasColumnType("varchar(300)")
                         .HasMaxLength(300);
 
                     b.HasKey("Id");
@@ -96,25 +96,24 @@ namespace Biblioteca.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("varchar(5000)")
                         .HasMaxLength(5000);
 
                     b.Property<string>("Serial")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<int>("Situacao")
                         .HasColumnType("int");
 
                     b.Property<string>("SubTitulo")
-                        .HasColumnType("nvarchar(300)")
+                        .HasColumnType("varchar(300)")
                         .HasMaxLength(300);
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(300)")
+                        .HasColumnType("varchar(300)")
                         .HasMaxLength(300);
 
                     b.HasKey("Id");
@@ -126,7 +125,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 1,
                             Ano = 2002,
-                            Descricao = "",
                             Serial = "0000000001",
                             Situacao = 0,
                             Titulo = "Agile Software Development, Principles, Patterns, and Practices"
@@ -135,7 +133,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 2,
                             Ano = 2009,
-                            Descricao = "",
                             Serial = "0000000002",
                             Situacao = 0,
                             SubTitulo = "A Handbook of Agile Software Craftsmanship",
@@ -145,7 +142,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 3,
                             Ano = 2011,
-                            Descricao = "",
                             Serial = "0000000003",
                             Situacao = 0,
                             SubTitulo = "A Code Of Conduct For Professional Programmers",
@@ -155,7 +151,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 4,
                             Ano = 2017,
-                            Descricao = "",
                             Serial = "0000000004",
                             Situacao = 0,
                             SubTitulo = "A Craftsman's Guide to Software Structure and Design",
@@ -165,7 +160,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 5,
                             Ano = 2019,
-                            Descricao = "",
                             Serial = "0000000005",
                             Situacao = 0,
                             SubTitulo = "Back to Basics",
@@ -175,7 +169,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 6,
                             Ano = 2003,
-                            Descricao = "",
                             Serial = "0000000006",
                             Situacao = 0,
                             SubTitulo = "Tackling Complexity in the Heart of Software",
@@ -185,7 +178,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 7,
                             Ano = 2013,
-                            Descricao = "",
                             Serial = "0000000007",
                             Situacao = 0,
                             Titulo = "Implementing Domain-Driven Design"
@@ -194,7 +186,6 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 8,
                             Ano = 2016,
-                            Descricao = "",
                             Serial = "0000000008",
                             Situacao = 0,
                             Titulo = "Domain-Driven Design Distilled"
@@ -208,15 +199,10 @@ namespace Biblioteca.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LivroId")
+                    b.Property<int?>("LivroId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AutorId");
 
                     b.HasIndex("LivroId");
 
@@ -226,49 +212,41 @@ namespace Biblioteca.Infra.Migrations
                         new
                         {
                             Id = 1,
-                            AutorId = 1,
                             LivroId = 1
                         },
                         new
                         {
                             Id = 2,
-                            AutorId = 1,
                             LivroId = 2
                         },
                         new
                         {
                             Id = 3,
-                            AutorId = 1,
                             LivroId = 3
                         },
                         new
                         {
                             Id = 4,
-                            AutorId = 1,
                             LivroId = 4
                         },
                         new
                         {
                             Id = 5,
-                            AutorId = 1,
                             LivroId = 5
                         },
                         new
                         {
                             Id = 6,
-                            AutorId = 2,
                             LivroId = 6
                         },
                         new
                         {
                             Id = 7,
-                            AutorId = 3,
                             LivroId = 7
                         },
                         new
                         {
                             Id = 8,
-                            AutorId = 3,
                             LivroId = 8
                         });
                 });
@@ -316,17 +294,9 @@ namespace Biblioteca.Infra.Migrations
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
                 {
-                    b.HasOne("Biblioteca.Domain.LivroContext.Autor", "Autor")
-                        .WithMany()
-                        .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Biblioteca.Domain.LivroContext.Livro", "Livro")
+                    b.HasOne("Biblioteca.Domain.LivroContext.Livro", null)
                         .WithMany("Autores")
-                        .HasForeignKey("LivroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LivroId");
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Locacao", b =>
@@ -349,11 +319,11 @@ namespace Biblioteca.Infra.Migrations
 
                             b1.Property<string>("Nome")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("varchar(100)");
 
                             b1.Property<string>("Serial")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("varchar(100)");
 
                             b1.HasKey("LocacaoId", "LivroId");
 

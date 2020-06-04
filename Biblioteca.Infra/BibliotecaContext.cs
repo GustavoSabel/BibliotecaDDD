@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Mail;
+using System.Linq;
 using System.Reflection;
 
 namespace Biblioteca.Infra
@@ -9,18 +10,54 @@ namespace Biblioteca.Infra
     {
         public BibliotecaContext(DbContextOptions<BibliotecaContext> options) : base(options) { }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(
-        //        @"Server=.;Database=Biblioteca;Integrated Security=True");
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+               .SelectMany(t => t.GetProperties())
+               .Where(p => p.ClrType == typeof(string)))
+            {
+                if (property.GetColumnType() == null)
+                {
+                    var maxLenght = property.GetMaxLength();
+                    if (maxLenght != null)
+                        property.SetColumnType($"varchar({maxLenght.Value})");
+                    else
+                        property.SetColumnType("varchar(100)");
+                }
+            }
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+               .SelectMany(t => t.GetProperties())
+               .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                if (property.GetColumnType() == null)
+                    property.SetColumnType("decimal(13,4)");
+            }
+
             Seed(modelBuilder);
+        }
+
+        public static void Configurar(DbContextOptionsBuilder options, string connectionString, bool ativarLog)
+        {
+            options
+                .UseSqlServer(connectionString)
+                .UseLazyLoadingProxies();
+
+            if (ativarLog)
+            {
+                var logger = LoggerFactory.Create(builder =>
+                {
+                    builder.AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information);
+                    builder.AddConsole();
+                });
+                options
+                    .UseLoggerFactory(logger)
+                    .EnableSensitiveDataLogging();
+            }
         }
 
         private static void Seed(ModelBuilder modelBuilder)
@@ -44,7 +81,7 @@ namespace Biblioteca.Infra
                 autor7
             );
 
-            var livros = new[] { 
+            var livros = new[] {
                 new Domain.LivroContext.Livro("Agile Software Development, Principles, Patterns, and Practices", null, 2002, new[] { autorRobertCecilmartin }) { Id = 1 },
                 new Domain.LivroContext.Livro("Clean Code", "A Handbook of Agile Software Craftsmanship", 2009, new[] { autorRobertCecilmartin }) { Id = 2 },
                 new Domain.LivroContext.Livro("The Clean Coder", "A Code Of Conduct For Professional Programmers", 2011, new[] { autorRobertCecilmartin }) { Id = 3 },
@@ -71,7 +108,8 @@ namespace Biblioteca.Infra
 
                 foreach (var a in livro.Autores)
                 {
-                    modelBuilder.Entity<Domain.LivroContext.LivroAutor>().HasData(new { 
+                    modelBuilder.Entity<Domain.LivroContext.LivroAutor>().HasData(new
+                    {
                         Id = ++idLivroAutor,
                         AutorId = a.Autor.Id,
                         LivroId = livro.Id,
