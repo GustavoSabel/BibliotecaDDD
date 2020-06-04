@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20200604002855_Inicial")]
+    [Migration("20200604004909_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,10 +199,15 @@ namespace Biblioteca.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LivroId")
+                    b.Property<int>("AutorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LivroId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AutorId");
 
                     b.HasIndex("LivroId");
 
@@ -212,41 +217,49 @@ namespace Biblioteca.Infra.Migrations
                         new
                         {
                             Id = 1,
+                            AutorId = 1,
                             LivroId = 1
                         },
                         new
                         {
                             Id = 2,
+                            AutorId = 1,
                             LivroId = 2
                         },
                         new
                         {
                             Id = 3,
+                            AutorId = 1,
                             LivroId = 3
                         },
                         new
                         {
                             Id = 4,
+                            AutorId = 1,
                             LivroId = 4
                         },
                         new
                         {
                             Id = 5,
+                            AutorId = 1,
                             LivroId = 5
                         },
                         new
                         {
                             Id = 6,
+                            AutorId = 2,
                             LivroId = 6
                         },
                         new
                         {
                             Id = 7,
+                            AutorId = 3,
                             LivroId = 7
                         },
                         new
                         {
                             Id = 8,
+                            AutorId = 3,
                             LivroId = 8
                         });
                 });
@@ -294,9 +307,17 @@ namespace Biblioteca.Infra.Migrations
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
                 {
-                    b.HasOne("Biblioteca.Domain.LivroContext.Livro", null)
+                    b.HasOne("Biblioteca.Domain.LivroContext.Autor", "Autor")
+                        .WithMany()
+                        .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Biblioteca.Domain.LivroContext.Livro", "Livro")
                         .WithMany("Autores")
-                        .HasForeignKey("LivroId");
+                        .HasForeignKey("LivroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LocacaoContext.Locacao", b =>

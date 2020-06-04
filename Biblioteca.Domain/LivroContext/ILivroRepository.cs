@@ -7,6 +7,6 @@ namespace Biblioteca.Domain.LivroContext
 {
     public interface ILivroRepository : IRepository<Livro>
     {
-        Task<IReadOnlyList<LivroListaDto>> ObterTodosAsync();
+        Task<List<LivroListaDto>> ObterTodosAsync();
     }
 }

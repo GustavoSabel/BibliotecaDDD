@@ -14,7 +14,7 @@ namespace Biblioteca.Infra.Repository.LivroContext
         {
         }
 
-        public Task<IReadOnlyList<LivroListaDto>> ObterTodosAsync()
+        public Task<List<LivroListaDto>> ObterTodosAsync()
         {
             return Set.Select(x => new LivroListaDto
             {
@@ -25,7 +25,7 @@ namespace Biblioteca.Infra.Repository.LivroContext
                 Situacao = x.Situacao,
                 SubTitulo = x.SubTitulo,
                 Titulo = x.Titulo
-            }).ToListAsync().ContinueWith(x => (IReadOnlyList<LivroListaDto>)x);
+            }).ToListAsync();
         }
     }
 }

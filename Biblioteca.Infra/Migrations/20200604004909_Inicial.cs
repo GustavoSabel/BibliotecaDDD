@@ -67,18 +67,26 @@ namespace Biblioteca.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LivroId = table.Column<int>(nullable: true)
+                    AutorId = table.Column<int>(nullable: false),
+                    LivroId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LivroAutor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LivroAutor_Autor_AutorId",
+                        column: x => x.AutorId,
+                        principalSchema: "Livro",
+                        principalTable: "Autor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LivroAutor_Livro_LivroId",
                         column: x => x.LivroId,
                         principalSchema: "Livro",
                         principalTable: "Livro",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,18 +171,24 @@ namespace Biblioteca.Infra.Migrations
             migrationBuilder.InsertData(
                 schema: "Livro",
                 table: "LivroAutor",
-                columns: new[] { "Id", "LivroId" },
+                columns: new[] { "Id", "AutorId", "LivroId" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 2, 2 },
-                    { 3, 3 },
-                    { 4, 4 },
-                    { 5, 5 },
-                    { 6, 6 },
-                    { 7, 7 },
-                    { 8, 8 }
+                    { 1, 1, 1 },
+                    { 2, 1, 2 },
+                    { 3, 1, 3 },
+                    { 4, 1, 4 },
+                    { 5, 1, 5 },
+                    { 6, 2, 6 },
+                    { 7, 3, 7 },
+                    { 8, 3, 8 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LivroAutor_AutorId",
+                schema: "Livro",
+                table: "LivroAutor",
+                column: "AutorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LivroAutor_LivroId",
@@ -192,16 +206,16 @@ namespace Biblioteca.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Autor",
-                schema: "Livro");
-
-            migrationBuilder.DropTable(
                 name: "LivroAutor",
                 schema: "Livro");
 
             migrationBuilder.DropTable(
                 name: "Livro",
                 schema: "Locacao");
+
+            migrationBuilder.DropTable(
+                name: "Autor",
+                schema: "Livro");
 
             migrationBuilder.DropTable(
                 name: "Livro",

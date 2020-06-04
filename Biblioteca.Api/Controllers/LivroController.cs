@@ -23,15 +23,26 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpGet]
-        public Task<IReadOnlyList<LivroListaDto>> Get()
+        public Task<List<LivroListaDto>> Get()
         {
             return _livroRepository.ObterTodosAsync();
         }
 
         [HttpGet("{id}")]
-        public ValueTask<Livro> Get(int id)
+        public async Task<LivroDto> Get(int id)
         {
-            return _livroRepository.ObterPorIdAsync(id);
+            var livro = await _livroRepository.ObterPorIdAsync(id);
+            return new LivroDto
+            {
+                Id = livro.Id,
+                Ano = livro.Ano,
+                Titulo = livro.Titulo,
+                SubTitulo = livro.SubTitulo,
+                Descricao = livro.Descricao,
+                Serial = livro.Serial,
+                Situacao = livro.Situacao,
+                Autores = livro.Autores.Select(x => x.Autor).ToList()
+            };
         }
 
         [HttpPost]
