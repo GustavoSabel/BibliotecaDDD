@@ -16,7 +16,7 @@ namespace Biblioteca.Domain.LivroContext
             Livro = livro;
         }
 
-        public virtual Autor Autor { get; protected set; }
-        public virtual Livro Livro { get; protected set; }
+        public virtual Autor Autor { get; }
+        public virtual Livro Livro { get; }
     }
 }
