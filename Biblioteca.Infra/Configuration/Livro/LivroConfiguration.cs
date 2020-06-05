@@ -12,6 +12,8 @@ namespace Biblioteca.Infra.Configuration.Livro
             builder.Property(x => x.SubTitulo).HasMaxLength(300);
             builder.Property(x => x.Serial).HasMaxLength(50);
             builder.Property(x => x.Descricao).HasMaxLength(5000);
+            builder.HasMany(x => x.Autores).WithOne(x => x.Livro)
+                .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
