@@ -40,7 +40,7 @@ namespace Biblioteca.Domain.LivroContext
         public string Serial { get; set; }
         public string? Descricao { get; set; }
         public SituacaoLivro Situacao { get; set; }
-        public virtual IReadOnlyList<LivroAutor> Autores { get => _autores; private set => _autores = value.ToList(); }
+        public virtual IReadOnlyList<LivroAutor> Autores => _autores;
 
         public void AddAutor(Autor autor)
         {
