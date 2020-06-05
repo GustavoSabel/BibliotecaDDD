@@ -7,7 +7,7 @@ namespace Biblioteca.Infra.Configuration.Locacao
     {
         public void Configure(EntityTypeBuilder<Domain.LocacaoContext.Cliente> builder)
         {
-            builder.ToTable("Cliente", schema: "Locacao");
+            builder.ToTable("Cliente", schema: "Locacao").HasKey(x => x.Id);
         }
     }
 }
