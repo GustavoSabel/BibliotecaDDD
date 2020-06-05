@@ -44,7 +44,7 @@ namespace Biblioteca.Domain.LivroContext
 
         public void AddAutor(Autor autor)
         {
-            if (_autores.Any(x => x.Id == autor.Id))
+            if (_autores.Any(x => x == autor))
                 throw new InvalidEntityException($"O Autor {autor.Nome} já está vinculado ao livro");
             _autores.Add(new LivroAutor(autor, this));
         }
