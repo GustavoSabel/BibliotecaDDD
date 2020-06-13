@@ -37,7 +37,7 @@ namespace Biblioteca.Infra.Common
 
         public Task SalvarAsync(T aggregateRoot)
         {
-            _context.Update(aggregateRoot);
+            _context.Attach(aggregateRoot);
             return _context.SaveChangesAsync();
         }
     }
