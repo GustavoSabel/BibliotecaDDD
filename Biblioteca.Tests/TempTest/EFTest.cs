@@ -6,16 +6,24 @@ namespace Biblioteca.Tests.TempTest
     public class EFTest
     {
         protected readonly BibliotecaContext _dbContext;
+        private readonly string _dbName;
         private static int contador = 1;
 
         public EFTest()
         {
-            var options = new DbContextOptionsBuilder<BibliotecaContext>()
-                    .UseInMemoryDatabase($"Db{contador++}")
-                    .UseLazyLoadingProxies()
-                    .Options;            
+            _dbName = $"Db{contador++}";
+            _dbContext = CriarDbContext();
+        }
 
-            _dbContext = new BibliotecaContext(options);
+        protected BibliotecaContext CriarDbContext()
+        {
+            var options = new DbContextOptionsBuilder<BibliotecaContext>()
+                                .UseInMemoryDatabase(_dbName)
+                                .UseLazyLoadingProxies()
+                                .Options;
+
+            var dbContext = new BibliotecaContext(options);
+            return dbContext;
         }
     }
 }

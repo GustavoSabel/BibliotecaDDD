@@ -7,7 +7,7 @@ namespace Biblioteca.Domain.LivroContext
 {
     public class Livro : AggregateRoot
     {
-        private List<LivroAutor> _autores;
+        private readonly List<LivroAutor> _autores;
 
         protected Livro()
         {

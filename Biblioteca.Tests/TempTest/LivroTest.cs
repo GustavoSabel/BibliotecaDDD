@@ -19,6 +19,10 @@ namespace Biblioteca.Tests.TempTest
             var livroObtido = _dbContext.Set<Livro>().Find(livro.Id);
 
             livroObtido.Should().Be(livro);
+
+            //var dbContext2 = CriarDbContext();
+            //var livro2 = dbContext2.Set<Livro>().Find(livro.Id);
+            //livro2.AddAutor(autor);
         }
     }
 }

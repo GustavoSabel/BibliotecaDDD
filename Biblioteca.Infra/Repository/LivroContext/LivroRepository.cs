@@ -10,6 +10,11 @@ namespace Biblioteca.Infra.Repository.LivroContext
 {
     public class LivroRepository : Repository<Livro>, ILivroRepository
     {
+        public override Task PosObterAsync(Livro livro)
+        {
+            return _context.Entry(livro).Collection(x => x.Autores).LoadAsync();
+        }
+
         public LivroRepository(BibliotecaContext context) : base(context)
         {
         }

@@ -28,12 +28,15 @@ namespace Biblioteca.Infra.Common
             return _context.SaveChangesAsync();
         }
 
-        public ValueTask<T?> ObterPorIdAsync(int id)
+        public async ValueTask<T?> ObterPorIdAsync(int id)
         {
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-            return _context.Set<T>().FindAsync(id);
-#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+            var result = (T?)(await _context.Set<T>().FindAsync(id));
+            if (result is object)
+                await PosObterAsync(result);
+            return result;
         }
+
+        public virtual Task PosObterAsync(T aggregateRoot) => Task.CompletedTask;
 
         public Task SalvarAsync(T aggregateRoot)
         {
