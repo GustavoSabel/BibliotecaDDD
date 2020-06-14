@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Biblioteca.Infra
 {
@@ -41,6 +43,17 @@ namespace Biblioteca.Infra
             }
 
             Seed(modelBuilder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is Estado)
+                    entry.State = EntityState.Unchanged;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         public static void Configurar(DbContextOptionsBuilder options, string connectionString, bool ativarLog)
@@ -102,22 +115,22 @@ namespace Biblioteca.Infra
             }
 
             var livros = new[] {
-                new Domain.LivroContext.Livro("Agile Software Development, Principles, Patterns, and Practices", null, null, 2002, 
+                new Domain.LivroContext.Livro("Agile Software Development, Principles, Patterns, and Practices", null, null, 2002,
                     Domain.LivroContext.Estado.Otimo, new[] { autorRobertCecilmartin }),
 
-                new Domain.LivroContext.Livro("Clean Code", "A Handbook of Agile Software Craftsmanship", null, 2009, 
+                new Domain.LivroContext.Livro("Clean Code", "A Handbook of Agile Software Craftsmanship", null, 2009,
                     Domain.LivroContext.Estado.Otimo, new[] { autorRobertCecilmartin }),
 
-                new Domain.LivroContext.Livro("The Clean Coder", "A Code Of Conduct For Professional Programmers", null, 2011, 
+                new Domain.LivroContext.Livro("The Clean Coder", "A Code Of Conduct For Professional Programmers", null, 2011,
                     Domain.LivroContext.Estado.Ruim, new[] { autorRobertCecilmartin }),
 
-                new Domain.LivroContext.Livro("Clean Architecture", "A Craftsman's Guide to Software Structure and Design", null, 2017, 
+                new Domain.LivroContext.Livro("Clean Architecture", "A Craftsman's Guide to Software Structure and Design", null, 2017,
                     Domain.LivroContext.Estado.Bom, new[] { autorRobertCecilmartin }),
 
-                new Domain.LivroContext.Livro("Clean Agile", "Back to Basics", null, 2019, 
+                new Domain.LivroContext.Livro("Clean Agile", "Back to Basics", null, 2019,
                     Domain.LivroContext.Estado.Otimo, new[] { autorRobertCecilmartin }),
 
-                new Domain.LivroContext.Livro("Domain-Driven Design", "Tackling Complexity in the Heart of Software", null, 2003, 
+                new Domain.LivroContext.Livro("Domain-Driven Design", "Tackling Complexity in the Heart of Software", null, 2003,
                     Domain.LivroContext.Estado.Ruim, new[] { autorEricEvans }),
 
                 new Domain.LivroContext.Livro("Implementing Domain-Driven Design", null, null, 2013,
