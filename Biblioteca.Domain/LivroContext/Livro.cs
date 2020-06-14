@@ -1,4 +1,5 @@
 ﻿using Biblioteca.Domain.Common;
+using Biblioteca.Domain.LivroContext.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,10 @@ namespace Biblioteca.Domain.LivroContext
             SubTitulo = null!;
             Descricao = null!;
             Estado = null!;
+            Ano = null!;
         }
 
-        public Livro(string titulo, string? subTitulo, string? descricao, int ano, Estado estado, IEnumerable<Autor> autores)
+        public Livro(string titulo, string? subTitulo, string? descricao, Ano ano, Estado estado, IEnumerable<Autor> autores)
         {
             Titulo = titulo;
             SubTitulo = subTitulo;
@@ -42,7 +44,7 @@ namespace Biblioteca.Domain.LivroContext
 
         public string Titulo { get; private set; }
         public string? SubTitulo { get; private set; }
-        public int Ano { get; private set; }
+        public virtual Ano Ano { get; private set; }
         public string Serial { get; private set; }
         public SituacaoLivro Situacao { get; private set; }
         public virtual Estado Estado { get; private set; }
@@ -54,7 +56,7 @@ namespace Biblioteca.Domain.LivroContext
             Situacao = novaSituacao;
         }
 
-        public void AtualizarDadosDoLivro(string titulo, string? subTitulo, string? descricao, int ano, Estado estado)
+        public void AtualizarDadosDoLivro(string titulo, string? subTitulo, string? descricao, Ano ano, Estado estado)
         {
             Titulo = titulo;
             SubTitulo = subTitulo;
@@ -99,12 +101,6 @@ namespace Biblioteca.Domain.LivroContext
 
             if (Autores.Count == 0)
                 throw new InvalidEntityException("Livro não pode ficar sem autores");
-
-            if (Ano < -5000)
-                throw new InvalidEntityException("Ano não pode ser menor que -5000");
-
-            if(Ano > DateTime.Now.Year)
-                throw new InvalidEntityException($"Ano não pode ser maior que {DateTime.Now.Year}");
         }
     }
 }

@@ -16,6 +16,9 @@ namespace Biblioteca.Infra.Configuration.Livro
                 .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasOne(x => x.Estado).WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.Ano)
+                .HasConversion(x => x.Valor, x => new Domain.LivroContext.ValueObjects.Ano(x));
         }
     }
 }
