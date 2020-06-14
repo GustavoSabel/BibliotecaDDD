@@ -1,4 +1,5 @@
 ﻿using Biblioteca.Domain.LivroContext;
+using Biblioteca.Domain.LivroContext.ValueObjects;
 using FluentAssertions;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace Biblioteca.Tests.TempTest
         public void Livro()
         {
             var autor = new Autor("Teste", new System.DateTime(2000, 1, 1));
-            var livro = new Livro("Titulo", "Subtitulo", null, 2000, Estado.Bom, new[] { autor });
+            var livro = new Livro(new Titulo("Titulo", "Subtitulo"), null, 2000, Estado.Bom, new[] { autor });
 
             _dbContext.Set<Autor>().Add(autor);
             _dbContext.Set<Livro>().Add(livro);

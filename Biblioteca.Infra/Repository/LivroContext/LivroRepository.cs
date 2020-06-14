@@ -28,8 +28,8 @@ namespace Biblioteca.Infra.Repository.LivroContext
                 Descricao = x.Descricao,
                 Serial = x.Serial,
                 Situacao = x.Situacao,
-                SubTitulo = x.SubTitulo,
-                Titulo = x.Titulo
+                Titulo = x.Titulo.Principal,
+                SubTitulo = x.Titulo.SubTitulo,
             }).ToListAsync();
         }
     }

@@ -8,8 +8,6 @@ namespace Biblioteca.Domain.LivroContext
 {
     public class Livro : AggregateRoot
     {
-        public const int TituloTamanhoMax = 300;
-        public const int SubTituloTamanhoMax = 300;
         public const int DescricaoTamanhoMax = 5000;
 
         private readonly List<LivroAutor> _autores;
@@ -18,17 +16,15 @@ namespace Biblioteca.Domain.LivroContext
         {
             Titulo = null!;
             Serial = null!;
-            _autores = null!;
-            SubTitulo = null!;
             Descricao = null!;
             Estado = null!;
             Ano = null!;
+            _autores = null!;
         }
 
-        public Livro(string titulo, string? subTitulo, string? descricao, Ano ano, Estado estado, IEnumerable<Autor> autores)
+        public Livro(Titulo titulo, string? descricao, Ano ano, Estado estado, IEnumerable<Autor> autores)
         {
             Titulo = titulo;
-            SubTitulo = subTitulo;
             Ano = ano;
             Serial = Guid.NewGuid().ToString();
             Situacao = SituacaoLivro.Disponivel;
@@ -42,8 +38,7 @@ namespace Biblioteca.Domain.LivroContext
             Validar();
         }
 
-        public string Titulo { get; private set; }
-        public string? SubTitulo { get; private set; }
+        public virtual Titulo Titulo { get; private set; }
         public virtual Ano Ano { get; private set; }
         public string Serial { get; private set; }
         public SituacaoLivro Situacao { get; private set; }
@@ -56,10 +51,9 @@ namespace Biblioteca.Domain.LivroContext
             Situacao = novaSituacao;
         }
 
-        public void AtualizarDadosDoLivro(string titulo, string? subTitulo, string? descricao, Ano ano, Estado estado)
+        public void AtualizarDadosDoLivro(Titulo titulo, string? descricao, Ano ano, Estado estado)
         {
             Titulo = titulo;
-            SubTitulo = subTitulo;
             Ano = ano;
             Estado = estado;
             Descricao = descricao;
@@ -87,20 +81,13 @@ namespace Biblioteca.Domain.LivroContext
 
         private void Validar()
         {
-            if (string.IsNullOrWhiteSpace(Titulo))
-                throw new InvalidEntityException("Título é obrigatório");
-
-            if (Titulo.Length > TituloTamanhoMax)
-                throw new InvalidEntityException($"Título deve ter menos de {TituloTamanhoMax} caracteres");
-
-            if (SubTitulo != null && SubTitulo.Length > SubTituloTamanhoMax)
-                throw new InvalidEntityException($"Título deve ter menos de {SubTituloTamanhoMax} caracteres");
-
             if (Descricao != null && Descricao.Length > DescricaoTamanhoMax)
                 throw new InvalidEntityException($"Descrição deve ter menos de {DescricaoTamanhoMax} caracteres");
 
             if (Autores.Count == 0)
                 throw new InvalidEntityException("Livro não pode ficar sem autores");
         }
+
+        public override string ToString() => Titulo.ToString();
     }
 }

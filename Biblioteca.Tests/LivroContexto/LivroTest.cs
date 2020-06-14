@@ -18,15 +18,15 @@ namespace Biblioteca.Tests.LivroContexto
         [Fact]
         public void Criar()
         {
-            var livro = new Livro("Clean Code", null, null, 2013, Estado.Bom,new List<Autor>() { _autor1 });
-            livro.Titulo.Should().Be("Clean Code");
+            var livro = new Livro(new Domain.LivroContext.ValueObjects.Titulo("Clean Code", null), null, 2013, Estado.Bom,new List<Autor>() { _autor1 });
+            livro.Titulo.ToString().Should().Be("Clean Code");
             livro.Autores.Should().HaveCount(1).And.Contain(x => x.Autor.Nome == _autor1.Nome);
         }
 
         [Fact]
         public void Criar_sem_autor()
         {
-            var act = new Action(() => new Livro("Clean Code", null, null, 2013, Estado.Bom, new List<Autor>()));
+            var act = new Action(() => new Livro(new Domain.LivroContext.ValueObjects.Titulo("Clean Code", null), null, 2013, Estado.Bom, new List<Autor>()));
             act.Should().Throw<Exception>().Which.Message.Contains("autor");
         }
     }

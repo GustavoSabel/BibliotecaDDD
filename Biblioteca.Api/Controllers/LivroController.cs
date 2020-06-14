@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Biblioteca.Api.Dto;
 using Biblioteca.Domain.LivroContext;
 using Biblioteca.Domain.LivroContext.Dtos;
+using Biblioteca.Domain.LivroContext.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.Api.Controllers
@@ -41,8 +42,8 @@ namespace Biblioteca.Api.Controllers
             {
                 Id = livro.Id,
                 Ano = livro.Ano,
-                Titulo = livro.Titulo,
-                SubTitulo = livro.SubTitulo,
+                Titulo = livro.Titulo.Principal,
+                SubTitulo = livro.Titulo.SubTitulo,
                 Descricao = livro.Descricao,
                 Serial = livro.Serial,
                 Situacao = livro.Situacao,
@@ -60,7 +61,7 @@ namespace Biblioteca.Api.Controllers
             foreach (var id in command.IdAutores)
                 autores.Add(await ObterAutor(id));
 
-            var livro = new Livro(command.Titulo, command.SubTitulo ?? "", command.Descricao, command.Ano, estado, autores);
+            var livro = new Livro(new Titulo(command.Titulo, command.SubTitulo), command.Descricao, new Ano(command.Ano), estado, autores);
 
             await _livroRepository.SalvarAsync(livro);
 
@@ -76,7 +77,7 @@ namespace Biblioteca.Api.Controllers
 
             var estado = ObterEstado(command);
 
-            livro.AtualizarDadosDoLivro(command.Titulo, command.SubTitulo, command.Descricao,command.Ano, estado);
+            livro.AtualizarDadosDoLivro(new Titulo(command.Titulo, command.SubTitulo), command.Descricao,command.Ano, estado);
 
             foreach (var idAutor in command.IdAutores)
             {
