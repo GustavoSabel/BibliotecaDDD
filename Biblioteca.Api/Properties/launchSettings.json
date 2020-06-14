@@ -20,7 +20,7 @@
     "Biblioteca.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/autor",
+      "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
