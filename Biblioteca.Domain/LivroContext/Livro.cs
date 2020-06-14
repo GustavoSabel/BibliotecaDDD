@@ -16,15 +16,17 @@ namespace Biblioteca.Domain.LivroContext
             _autores = null!;
             SubTitulo = null!;
             Descricao = null!;
+            Estado = null!;
         }
 
-        public Livro(string titulo, string? subTitulo, int ano, IEnumerable<Autor> autores)
+        public Livro(string titulo, string? subTitulo, int ano, Estado estado, IEnumerable<Autor> autores)
         {
             Titulo = titulo;
             SubTitulo = subTitulo;
             Ano = ano;
             Serial = Guid.NewGuid().ToString();
             Situacao = SituacaoLivro.Disponivel;
+            Estado = estado;
 
             _autores = new List<LivroAutor>();
             foreach (var autor in autores)
@@ -40,6 +42,7 @@ namespace Biblioteca.Domain.LivroContext
         public string Serial { get; set; }
         public string? Descricao { get; set; }
         public SituacaoLivro Situacao { get; set; }
+        public virtual Estado Estado { get; set; }
         public virtual IReadOnlyList<LivroAutor> Autores => _autores;
 
         public void AddAutor(Autor autor)

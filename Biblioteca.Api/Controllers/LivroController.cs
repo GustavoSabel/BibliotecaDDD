@@ -52,7 +52,7 @@ namespace Biblioteca.Api.Controllers
             foreach (var id in command.IdAutores)
                 autores.Add(await ObterAutor(id));
 
-            var livro = new Livro(command.Titulo, command.SubTitulo ?? "", command.Ano, autores);
+            var livro = new Livro(command.Titulo, command.SubTitulo ?? "", command.Ano, Estado.Bom, autores);
             await _livroRepository.SalvarAsync(livro);
         }
 

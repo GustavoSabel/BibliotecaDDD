@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Biblioteca.Domain.LivroContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Biblioteca.Infra.Configuration.Livro
@@ -14,6 +15,16 @@ namespace Biblioteca.Infra.Configuration.Livro
             builder.Property(x => x.Descricao).HasMaxLength(5000);
             builder.HasMany(x => x.Autores).WithOne(x => x.Livro)
                 .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.HasOne(x => x.Estado).WithMany();
+        }
+    }
+
+    public class EstadoConfiguration : IEntityTypeConfiguration<Estado>
+    {
+        public void Configure(EntityTypeBuilder<Estado> builder)
+        {
+            builder.ToTable("Livro", schema: "Estado").HasKey(x => x.Id);
+            builder.Property(x => x.Descricao).HasMaxLength(100);
         }
     }
 }
