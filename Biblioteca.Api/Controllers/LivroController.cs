@@ -29,7 +29,12 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<LivroDto> Get(int id)
+        public Task<LivroDto> Get(int id)
+        {
+            return ObterLivroDto(id);
+        }
+
+        private async Task<LivroDto> ObterLivroDto(int id)
         {
             var livro = await _livroRepository.ObterPorIdAsync(id);
             return new LivroDto
@@ -41,44 +46,64 @@ namespace Biblioteca.Api.Controllers
                 Descricao = livro.Descricao,
                 Serial = livro.Serial,
                 Situacao = livro.Situacao,
+                Estado = livro.Estado.Descricao,
                 Autores = livro.Autores.Select(x => x.Autor).ToList()
             };
         }
 
         [HttpPost]
-        public async Task Post([FromBody] SalvarLivroCommand command)
+        public async Task<LivroDto> Post([FromBody] SalvarLivroCommand command)
         {
+            var estado = ObterEstado(command);
+
             var autores = new List<Autor>();
             foreach (var id in command.IdAutores)
                 autores.Add(await ObterAutor(id));
 
-            var livro = new Livro(command.Titulo, command.SubTitulo ?? "", command.Ano, Estado.Bom, autores);
+            var livro = new Livro(command.Titulo, command.SubTitulo ?? "", command.Descricao, command.Ano, estado, autores);
+
             await _livroRepository.SalvarAsync(livro);
+
+            return await ObterLivroDto(livro.Id);
         }
 
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] SalvarLivroCommand command)
+        public async Task<LivroDto> Put(int id, [FromBody] SalvarLivroCommand command)
         {
             var livro = await _livroRepository.ObterPorIdAsync(id);
             if (livro == null)
                 throw new Exception($"Livro {id} não encontrado");
 
-            livro.Titulo = command.Titulo;
-            livro.SubTitulo = command.SubTitulo;
-            livro.Descricao = command.Descricao;
-            livro.Ano = command.Ano;
+            var estado = ObterEstado(command);
+
+            livro.AtualizarDadosDoLivro(command.Titulo, command.SubTitulo, command.Descricao,command.Ano, estado);
 
             foreach (var idAutor in command.IdAutores)
             {
                 if (!livro.Autores.Any(x => x.Autor.Id == idAutor))
-                    livro.AddAutor(await ObterAutor(id));
+                    livro.AddAutor(await ObterAutor(idAutor));
             }
 
-            foreach (var autor in livro.Autores)
+            foreach (var autor in livro.Autores.ToList())
             {
                 if (!command.IdAutores.Contains(autor.Autor.Id))
                     livro.RemoverAutor(autor.Autor.Id);
             }
+
+            await _livroRepository.SalvarAsync(livro);
+
+            return await ObterLivroDto(id);
+        }
+
+        private static Estado ObterEstado(SalvarLivroCommand command)
+        {
+            if (string.IsNullOrWhiteSpace(command.Estado))
+                throw new Exception($"Estado não informado");
+
+            var estado = Estado.ObterPorDescricao(command.Estado);
+            if (estado == null)
+                throw new Exception($"Estado {command.Estado} não encontrado");
+            return estado;
         }
 
         [HttpDelete("{id}")]

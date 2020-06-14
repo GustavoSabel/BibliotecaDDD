@@ -20,7 +20,7 @@ namespace Biblioteca.Domain.LivroContext
             if (livro is null)
                 throw new Exception($"Livro {domainEvent.LivroId} não encontrado");
 
-            livro.Situacao = SituacaoLivro.Disponivel;
+            livro.AlterarSituacao(SituacaoLivro.Disponivel);
             await _livroRepository.SalvarAsync(livro);
         }
     }

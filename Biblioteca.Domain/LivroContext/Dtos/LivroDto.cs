@@ -11,6 +11,7 @@ namespace Biblioteca.Domain.LivroContext.Dtos
         public string Serial { get; set; } = "";
         public string? Descricao { get; set; }
         public SituacaoLivro Situacao { get; set; }
+        public string Estado { get; set; } = "";
         public List<Autor> Autores { get; set; } = new List<Autor>();
     }
 }

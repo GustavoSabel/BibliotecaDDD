@@ -1,5 +1,7 @@
 ﻿using Biblioteca.Domain.Common;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace Biblioteca.Domain.LivroContext
 {
@@ -22,5 +24,12 @@ namespace Biblioteca.Domain.LivroContext
         }
 
         public string Descricao { get; }
+
+        public override string ToString() => Descricao;
+
+        public static Estado ObterPorDescricao(string descricao)
+        {
+            return Listar().FirstOrDefault(x => x.Descricao.Equals(descricao, System.StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }
