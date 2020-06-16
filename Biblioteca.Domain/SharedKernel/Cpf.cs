@@ -17,7 +17,6 @@ namespace Biblioteca.Domain.SharedKernel
                 throw new Exception($"CPF {valor} inválido");
 
             Valor = valor;
-            ValorFormatado = long.Parse(valor).ToString(@"000\.000\.000-00");
         }
 
         private static string ObterApenasNumeros(string valor)
@@ -27,7 +26,6 @@ namespace Biblioteca.Domain.SharedKernel
         }
 
         public string Valor { get; }
-        public string ValorFormatado { get; }
 
         protected override bool EqualsCore(Cpf other)
         {
@@ -38,5 +36,7 @@ namespace Biblioteca.Domain.SharedKernel
         {
             return Valor.GetHashCode();
         }
+
+        public override string ToString() => long.Parse(Valor).ToString(@"000\.000\.000-00");
     }
 }

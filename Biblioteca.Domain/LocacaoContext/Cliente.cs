@@ -6,6 +6,8 @@ namespace Biblioteca.Domain.LocacaoContext
 {
     public class Cliente : AggregateRoot
     {
+        public const int NomeTamanhoMax = 300;
+
         protected Cliente()
         {
             Nome = null!;
@@ -19,8 +21,8 @@ namespace Biblioteca.Domain.LocacaoContext
             DataNascimento = dataNascimento;
         }
 
-        public string Nome { get; }
-        public DateTime DataNascimento { get; }
-        public Cpf Cpf { get; }
+        public string Nome { get; private set; }
+        public DateTime DataNascimento { get; private set; }
+        public Cpf Cpf { get; private set; }
     }
 }

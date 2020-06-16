@@ -12,7 +12,7 @@ namespace Biblioteca.Tests
         {
             var cpf = new Cpf("12345678912");
             cpf.Valor.Should().Be("12345678912");
-            cpf.ValorFormatado.Should().Be("123.456.789-12");
+            cpf.ToString().Should().Be("123.456.789-12");
         }
 
         [Fact]
