@@ -17,8 +17,8 @@ namespace Biblioteca.Tests
         public LocacaoTest()
         {
             _cliente = new Cliente("Joao", new Cpf("12345678912"), new DateTime(2000, 1, 1));
-            _livro1 = new Livro(1, "O nome do vento", "1232144");
-            _livro2 = new Livro(2, "O temor do sávio", "1232145");
+            _livro1 = new Livro(1, "O nome do vento", "", "Ruim");
+            _livro2 = new Livro(2, "O temor do sávio", null, "Bom");
         }
 
         [Fact]
@@ -32,9 +32,9 @@ namespace Biblioteca.Tests
             using (new AssertionScope())
             {
                 locacao.Livros.Should()
-                .HaveCount(2)
-                .And.Contain(x => x.Nome == _livro1.Nome)
-                .And.Contain(x => x.Nome == _livro2.Nome);
+                    .HaveCount(2)
+                    .And.Contain(x => x.Titulo == _livro1.Titulo)
+                    .And.Contain(x => x.Titulo == _livro2.Titulo);
 
                 locacao.DataLocacao.Should().Be(dataLocacao);
                 locacao.DataPrevistaDevolucao.Should().Be(dataDevolucaoEsperada.Date); 

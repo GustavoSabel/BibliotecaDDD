@@ -330,6 +330,9 @@ namespace Biblioteca.Infra.Migrations
                     b.Property<DateTime>("DataPrevistaDevolucao")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Devolvido")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("TeveMulta")
                         .HasColumnType("bit");
 
@@ -447,23 +450,35 @@ namespace Biblioteca.Infra.Migrations
 
                     b.OwnsMany("Biblioteca.Domain.LocacaoContext.Livro", "Livros", b1 =>
                         {
-                            b1.Property<int>("LocacaoId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("LivroId")
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
+                                .HasColumnName("Id")
                                 .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Nome")
+                            b1.Property<string>("Estado")
                                 .IsRequired()
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
 
-                            b1.Property<string>("Serial")
+                            b1.Property<int>("LivroId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("LocacaoId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("SubTitulo")
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
+
+                            b1.Property<string>("Titulo")
                                 .IsRequired()
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
 
-                            b1.HasKey("LocacaoId", "LivroId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("LocacaoId");
 
                             b1.ToTable("Livro","Locacao");
 

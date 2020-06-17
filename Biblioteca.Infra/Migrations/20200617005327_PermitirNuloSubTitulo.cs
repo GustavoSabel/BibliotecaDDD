@@ -2,17 +2,17 @@
 
 namespace Biblioteca.Infra.Migrations
 {
-    public partial class AddValueObjectTitulo : Migration
+    public partial class PermitirNuloSubTitulo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Titulo",
-                schema: "Livro",
+                name: "SubTitulo",
+                schema: "Locacao",
                 table: "Livro",
                 type: "varchar(300)",
                 maxLength: 300,
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(string),
                 oldType: "varchar(300)",
                 oldMaxLength: 300);
@@ -21,8 +21,8 @@ namespace Biblioteca.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Titulo",
-                schema: "Livro",
+                name: "SubTitulo",
+                schema: "Locacao",
                 table: "Livro",
                 type: "varchar(300)",
                 maxLength: 300,

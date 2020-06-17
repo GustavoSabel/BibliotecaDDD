@@ -29,6 +29,7 @@ namespace Biblioteca.Domain.LocacaoContext
         public DateTime DataLocacao { get; private set; }
         public DateTime DataPrevistaDevolucao { get; private set; }
         public DateTime? DataDevolucao { get; private set; }
+        public bool Devolvido { get; private set; }
         public virtual Cliente Cliente { get; private set; }
         public virtual IReadOnlyList<Livro> Livros { get; private set; }
         public bool TeveMulta { get; private set; }
@@ -39,6 +40,7 @@ namespace Biblioteca.Domain.LocacaoContext
                 throw new InvalidEntityException("Data de devolução não pode ser menor que a data de locação");
 
             DataDevolucao = dataDevolucao;
+            Devolvido = true;
 
             if (dataDevolucao.Date > DataPrevistaDevolucao)
                 TeveMulta = true; 

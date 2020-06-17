@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Infra.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20200604004909_Inicial")]
-    partial class Inicial
+    [Migration("20200617005327_PermitirNuloSubTitulo")]
+    partial class PermitirNuloSubTitulo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,40 @@ namespace Biblioteca.Infra.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Biblioteca.Domain.LivroContext.Estado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Estado","Livro");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descricao = "Ótimo"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descricao = "Bom"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descricao = "Ruim"
+                        });
+                });
+
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.Livro", b =>
                 {
                     b.Property<int>("Id")
@@ -99,6 +133,9 @@ namespace Biblioteca.Infra.Migrations
                         .HasColumnType("varchar(5000)")
                         .HasMaxLength(5000);
 
+                    b.Property<int>("EstadoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Serial")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
@@ -107,16 +144,9 @@ namespace Biblioteca.Infra.Migrations
                     b.Property<int>("Situacao")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubTitulo")
-                        .HasColumnType("varchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("varchar(300)")
-                        .HasMaxLength(300);
-
                     b.HasKey("Id");
+
+                    b.HasIndex("EstadoId");
 
                     b.ToTable("Livro","Livro");
 
@@ -125,70 +155,65 @@ namespace Biblioteca.Infra.Migrations
                         {
                             Id = 1,
                             Ano = 2002,
+                            EstadoId = 1,
                             Serial = "0000000001",
-                            Situacao = 0,
-                            Titulo = "Agile Software Development, Principles, Patterns, and Practices"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 2,
                             Ano = 2009,
+                            EstadoId = 1,
                             Serial = "0000000002",
-                            Situacao = 0,
-                            SubTitulo = "A Handbook of Agile Software Craftsmanship",
-                            Titulo = "Clean Code"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 3,
                             Ano = 2011,
+                            EstadoId = 3,
                             Serial = "0000000003",
-                            Situacao = 0,
-                            SubTitulo = "A Code Of Conduct For Professional Programmers",
-                            Titulo = "The Clean Coder"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 4,
                             Ano = 2017,
+                            EstadoId = 2,
                             Serial = "0000000004",
-                            Situacao = 0,
-                            SubTitulo = "A Craftsman's Guide to Software Structure and Design",
-                            Titulo = "Clean Architecture"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 5,
                             Ano = 2019,
+                            EstadoId = 1,
                             Serial = "0000000005",
-                            Situacao = 0,
-                            SubTitulo = "Back to Basics",
-                            Titulo = "Clean Agile"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 6,
                             Ano = 2003,
+                            EstadoId = 3,
                             Serial = "0000000006",
-                            Situacao = 0,
-                            SubTitulo = "Tackling Complexity in the Heart of Software",
-                            Titulo = "Domain-Driven Design"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 7,
                             Ano = 2013,
+                            EstadoId = 2,
                             Serial = "0000000007",
-                            Situacao = 0,
-                            Titulo = "Implementing Domain-Driven Design"
+                            Situacao = 0
                         },
                         new
                         {
                             Id = 8,
                             Ano = 2016,
+                            EstadoId = 3,
                             Serial = "0000000008",
-                            Situacao = 0,
-                            Titulo = "Domain-Driven Design Distilled"
+                            Situacao = 0
                         });
                 });
 
@@ -271,6 +296,18 @@ namespace Biblioteca.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("CHAR(11)");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(300)")
+                        .HasMaxLength(300);
+
                     b.HasKey("Id");
 
                     b.ToTable("Cliente","Locacao");
@@ -295,6 +332,9 @@ namespace Biblioteca.Infra.Migrations
                     b.Property<DateTime>("DataPrevistaDevolucao")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Devolvido")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("TeveMulta")
                         .HasColumnType("bit");
 
@@ -303,6 +343,88 @@ namespace Biblioteca.Infra.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Locacao","Locacao");
+                });
+
+            modelBuilder.Entity("Biblioteca.Domain.LivroContext.Livro", b =>
+                {
+                    b.HasOne("Biblioteca.Domain.LivroContext.Estado", "Estado")
+                        .WithMany()
+                        .HasForeignKey("EstadoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.OwnsOne("Biblioteca.Domain.LivroContext.ValueObjects.Titulo", "Titulo", b1 =>
+                        {
+                            b1.Property<int>("LivroId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("Principal")
+                                .IsRequired()
+                                .HasColumnName("Titulo")
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
+
+                            b1.Property<string>("SubTitulo")
+                                .HasColumnName("SubTitulo")
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
+
+                            b1.HasKey("LivroId");
+
+                            b1.ToTable("Livro");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LivroId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    LivroId = 1,
+                                    Principal = "Agile Software Development, Principles, Patterns, and Practices"
+                                },
+                                new
+                                {
+                                    LivroId = 2,
+                                    Principal = "Clean Code",
+                                    SubTitulo = "A Handbook of Agile Software Craftsmanship"
+                                },
+                                new
+                                {
+                                    LivroId = 3,
+                                    Principal = "The Clean Coder",
+                                    SubTitulo = "A Code Of Conduct For Professional Programmers"
+                                },
+                                new
+                                {
+                                    LivroId = 4,
+                                    Principal = "Clean Architecture",
+                                    SubTitulo = "A Craftsman's Guide to Software Structure and Design"
+                                },
+                                new
+                                {
+                                    LivroId = 5,
+                                    Principal = "Clean Agile",
+                                    SubTitulo = "Back to Basics"
+                                },
+                                new
+                                {
+                                    LivroId = 6,
+                                    Principal = "Domain-Driven Design",
+                                    SubTitulo = "Tackling Complexity in the Heart of Software"
+                                },
+                                new
+                                {
+                                    LivroId = 7,
+                                    Principal = "Implementing Domain-Driven Design"
+                                },
+                                new
+                                {
+                                    LivroId = 8,
+                                    Principal = "Domain-Driven Design Distilled"
+                                });
+                        });
                 });
 
             modelBuilder.Entity("Biblioteca.Domain.LivroContext.LivroAutor", b =>
@@ -330,23 +452,35 @@ namespace Biblioteca.Infra.Migrations
 
                     b.OwnsMany("Biblioteca.Domain.LocacaoContext.Livro", "Livros", b1 =>
                         {
-                            b1.Property<int>("LocacaoId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("LivroId")
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
+                                .HasColumnName("Id")
                                 .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Nome")
+                            b1.Property<string>("Estado")
                                 .IsRequired()
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
 
-                            b1.Property<string>("Serial")
+                            b1.Property<int>("LivroId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("LocacaoId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("SubTitulo")
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
+
+                            b1.Property<string>("Titulo")
                                 .IsRequired()
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(300)")
+                                .HasMaxLength(300);
 
-                            b1.HasKey("LocacaoId", "LivroId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("LocacaoId");
 
                             b1.ToTable("Livro","Locacao");
 
