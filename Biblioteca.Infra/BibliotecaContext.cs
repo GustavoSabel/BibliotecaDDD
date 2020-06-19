@@ -1,6 +1,9 @@
-﻿using Biblioteca.Domain.LivroContext;
+﻿using Biblioteca.Domain.Common;
+using Biblioteca.Domain.LivroContext;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -10,7 +13,12 @@ namespace Biblioteca.Infra
 {
     public class BibliotecaContext : DbContext
     {
-        public BibliotecaContext(DbContextOptions<BibliotecaContext> options) : base(options) { }
+        private readonly IMediator _mediator;
+
+        public BibliotecaContext(DbContextOptions<BibliotecaContext> options, IMediator mediator) : base(options)
+        {
+            _mediator = mediator;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,15 +51,37 @@ namespace Biblioteca.Infra
             Seed(modelBuilder);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            foreach (var entry in ChangeTracker.Entries())
+            var entries = ChangeTracker.Entries().Where(x => x.Entity is Entity).ToList();
+
+            foreach (var entry in entries)
             {
                 if (entry.Entity is Estado)
                     entry.State = EntityState.Unchanged;
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            var resultado = await base.SaveChangesAsync(cancellationToken);
+
+            await DispatchDomainEvents(entries, cancellationToken);
+
+            return resultado;
+        }
+
+        private async Task DispatchDomainEvents(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> entries, CancellationToken cancellationToken)
+        {
+            var domainEvents = new List<IDomainEvent>();
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is AggregateRoot aggregateRoot)
+                {
+                    domainEvents.AddRange(aggregateRoot.DomainEvents);
+                    aggregateRoot.ClearEvents();
+                }
+            }
+
+            foreach (var domainEvent in domainEvents)
+                await _mediator.Send(domainEvent, cancellationToken);
         }
 
         public static void Configurar(DbContextOptionsBuilder options, string connectionString, bool ativarLog)

@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Biblioteca.Domain.Common
 {
-    public interface IHandler<T>
-        where T : IDomainEvent
+    public abstract class Handler<T> : AsyncRequestHandler<T> where T : IDomainEvent
     {
-        Task HandleAsync(T domainEvent);
+        
     }
 }

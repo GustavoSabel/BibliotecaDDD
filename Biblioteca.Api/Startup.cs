@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Biblioteca.Api
@@ -33,6 +32,8 @@ namespace Biblioteca.Api
             services.AddTransient<ILivroRepository, LivroRepository>();
             services.AddTransient<IClienteRepository, ClienteRepository>();
             services.AddTransient<ILocacaoRepository, LocacaoRepository>();
+
+            Domain.Configurador.Configurar(services);
 
             services.AddDbContext<BibliotecaContext>(options =>
             {

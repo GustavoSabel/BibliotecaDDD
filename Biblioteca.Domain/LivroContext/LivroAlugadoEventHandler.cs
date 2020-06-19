@@ -1,11 +1,12 @@
 ﻿using Biblioteca.Domain.Common;
 using Biblioteca.Domain.LocacaoContext;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Biblioteca.Domain.LivroContext
 {
-    public class LivroAlugadoEventHandler : IHandler<LivroAlugadoEvent>
+    public class LivroAlugadoEventHandler : Handler<LivroAlugadoEvent>
     {
         private readonly ILivroRepository _livroRepository;
 
@@ -14,13 +15,13 @@ namespace Biblioteca.Domain.LivroContext
             _livroRepository = livroRepository;
         }
 
-        public async Task HandleAsync(LivroAlugadoEvent domainEvent)
+        protected override async Task Handle(LivroAlugadoEvent @event, CancellationToken cancellationToken)
         {
-            var livro = await _livroRepository.ObterPorIdAsync(domainEvent.LivroId);
+            var livro = await _livroRepository.ObterPorIdAsync(@event.LivroId);
             if (livro is null)
-                throw new Exception($"Livro {domainEvent.LivroId} não encontrado");
+                throw new Exception($"Livro {@event.LivroId} não encontrado");
 
-            livro.AlterarSituacao(SituacaoLivro.Disponivel);
+            livro.AlterarSituacao(SituacaoLivro.Alugado);
             await _livroRepository.SalvarAsync(livro);
         }
     }

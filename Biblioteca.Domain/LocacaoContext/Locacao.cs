@@ -6,7 +6,7 @@ namespace Biblioteca.Domain.LocacaoContext
 {
     public class Locacao : AggregateRoot
     {
-        private Locacao()
+        protected Locacao()
         {
             Livros = null!;
             Cliente = null!;

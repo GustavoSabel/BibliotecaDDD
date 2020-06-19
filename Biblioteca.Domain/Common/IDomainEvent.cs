@@ -1,6 +1,8 @@
-﻿namespace Biblioteca.Domain.Common
+﻿using MediatR;
+
+namespace Biblioteca.Domain.Common
 {
-    public interface IDomainEvent
+    public interface IDomainEvent : IRequest
     {
     }
 }
