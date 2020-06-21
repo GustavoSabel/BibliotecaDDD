@@ -52,7 +52,8 @@ namespace Biblioteca.Api.Controllers
             }
 
             var locacao = new Locacao(DateTime.Now, DateTime.Now.AddDays(2), cliente, livros);
-            await _locacaoRepository.SalvarAsync(locacao);
+            _locacaoRepository.Add(locacao);
+            await _locacaoRepository.SalvarAsync();
 
             return ConverterParaDto(locacao);
         }
@@ -65,7 +66,7 @@ namespace Biblioteca.Api.Controllers
                 throw new Exception($"Essa locação já foi devolvida em {locacao.DataDevolucao:g}");
 
             locacao.Devolver(DateTime.Now);
-            await _locacaoRepository.SalvarAsync(locacao);
+            await _locacaoRepository.SalvarAsync();
 
             return ConverterParaDto(locacao);
         }

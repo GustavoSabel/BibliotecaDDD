@@ -46,7 +46,10 @@ namespace Biblioteca.Api.Controllers
                 throw new Exception($"Já existe o cliente {clieteExistente.Nome} com esse CPF");
 
             var cliente = new Cliente(value.Nome, cpf, value.DataNascimento);
-            await _clienteRepository.SalvarAsync(cliente);
+            _clienteRepository.Add(cliente);
+
+            await _clienteRepository.SalvarAsync();
+
             return Converter(cliente);
         }
 
@@ -59,7 +62,7 @@ namespace Biblioteca.Api.Controllers
 
             cliente.AtualizarDados(value.Nome, value.DataNascimento);
 
-            await _clienteRepository.SalvarAsync(cliente);
+            await _clienteRepository.SalvarAsync();
 
             return Converter(cliente);
         }

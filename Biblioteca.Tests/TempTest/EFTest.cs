@@ -1,5 +1,7 @@
 ﻿using Biblioteca.Infra;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace Biblioteca.Tests.TempTest
 {
@@ -7,11 +9,11 @@ namespace Biblioteca.Tests.TempTest
     {
         protected readonly BibliotecaContext _dbContext;
         private readonly string _dbName;
-        private static int contador = 1;
+        private static int _contador = 1;
 
         public EFTest()
         {
-            _dbName = $"Db{contador++}";
+            _dbName = $"Db{_contador++}";
             _dbContext = CriarDbContext();
         }
 
@@ -22,7 +24,7 @@ namespace Biblioteca.Tests.TempTest
                                 .UseLazyLoadingProxies()
                                 .Options;
 
-            var dbContext = new BibliotecaContext(options);
+            var dbContext = new BibliotecaContext(options, Mock.Of<IMediator>());
             return dbContext;
         }
     }

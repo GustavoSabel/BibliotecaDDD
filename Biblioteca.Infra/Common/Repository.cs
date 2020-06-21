@@ -38,9 +38,18 @@ namespace Biblioteca.Infra.Common
 
         public virtual Task PosObterAsync(T aggregateRoot) => Task.CompletedTask;
 
-        public Task SalvarAsync(T aggregateRoot)
+        public void Add(T aggregateRoot)
         {
+#if DEBUG
+            if (aggregateRoot.Id > 0)
+                throw new System.Exception("Entidade já está adicionada");
+#endif
+
             _context.Attach(aggregateRoot);
+        }
+
+        public Task SalvarAsync()
+        {
             return _context.SaveChangesAsync();
         }
     }

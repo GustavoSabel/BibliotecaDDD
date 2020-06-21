@@ -63,7 +63,8 @@ namespace Biblioteca.Api.Controllers
 
             var livro = new Livro(new Titulo(command.Titulo, command.SubTitulo), command.Descricao, new Ano(command.Ano), estado, autores);
 
-            await _livroRepository.SalvarAsync(livro);
+            _livroRepository.Add(livro);
+            await _livroRepository.SalvarAsync();
 
             return await ObterLivroDto(livro.Id);
         }
@@ -91,7 +92,7 @@ namespace Biblioteca.Api.Controllers
                     livro.RemoverAutor(autor.Autor.Id);
             }
 
-            await _livroRepository.SalvarAsync(livro);
+            await _livroRepository.SalvarAsync();
 
             return await ObterLivroDto(id);
         }

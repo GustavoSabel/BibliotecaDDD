@@ -1,7 +1,9 @@
-﻿using Biblioteca.Api.Dtos;
+﻿using Biblioteca.Api.Dto;
+using Biblioteca.Api.Dtos;
 using Biblioteca.Domain.LivroContext;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Biblioteca.Api.Controllers
@@ -18,33 +20,44 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpGet]
-        public Task<IReadOnlyList<Autor>> Get()
+        public Task<List<AutorDto>> Get()
         {
-            return _autorRepository.ObterTodosAsync();
+            return _autorRepository.ObterTodosAsync().ContinueWith(x => x.Result.Select(a => Converter(a)).ToList());
+        }
+
+        private static AutorDto Converter(Autor a)
+        {
+            return new AutorDto
+            {
+                Id = a.Id,
+                DataNascimento = a.DataNascimento,
+                Nome = a.Nome
+            };
         }
 
         [HttpGet("{id}")]
-        public ValueTask<Autor> Get(int id)
+        public async Task<AutorDto> Get(int id)
         {
-            return _autorRepository.ObterPorIdAsync(id);
+            return Converter(await _autorRepository.ObterPorIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<Autor> Post([FromBody] SalvarAutorDto autorDto)
+        public async Task<AutorDto> Post([FromBody] SalvarAutorDto autorDto)
         {
             var autor = new Autor(autorDto.Nome, autorDto.DataNascimento);
-            await _autorRepository.SalvarAsync(autor);
-            return autor;
+            _autorRepository.Add(autor);
+            await _autorRepository.SalvarAsync();
+            return Converter(autor);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] AtualizarAutorDto autorAlterado)
+        public async Task<AutorDto> Put(int id, [FromBody] AtualizarAutorDto autorAlterado)
         {
             var autor = await _autorRepository.ObterPorIdAsync(id);
             autor.SetNome(autorAlterado.Nome);
             autor.SetDataNascimento(autorAlterado.DataNascimento);
-            await _autorRepository.SalvarAsync(autor);
-            return NoContent();
+            await _autorRepository.SalvarAsync();
+            return Converter(autor);
         }
 
         [HttpDelete("{id}")]

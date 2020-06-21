@@ -22,7 +22,7 @@ namespace Biblioteca.Domain.LivroContext
                 throw new Exception($"Livro {domainEvent.LivroId} não encontrado");
 
             livro.AlterarSituacao(SituacaoLivro.Disponivel);
-            await _livroRepository.SalvarAsync(livro);
+            await _livroRepository.SalvarAsync();
         }
     }
 }
