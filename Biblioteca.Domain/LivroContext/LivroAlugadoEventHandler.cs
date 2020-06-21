@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.Common;
+﻿using Biblioteca.Domain.Common.Events;
 using Biblioteca.Domain.LocacaoContext;
 using System;
 using System.Threading;

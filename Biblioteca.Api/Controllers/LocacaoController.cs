@@ -75,6 +75,7 @@ namespace Biblioteca.Api.Controllers
         {
             return new LocacaoDto
             {
+                Id = locacao.Id,
                 Cliente = locacao.Cliente.Nome,
                 DataDevolucao = locacao.DataDevolucao,
                 DataLocacao = locacao.DataLocacao,

@@ -1,8 +1,3 @@
-using Biblioteca.Domain.LivroContext;
-using Biblioteca.Domain.LocacaoContext;
-using Biblioteca.Infra;
-using Biblioteca.Infra.Repository.LivroContext;
-using Biblioteca.Infra.Repository.LocacaoContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,19 +23,8 @@ namespace Biblioteca.Api
         {
             services.AddControllers();
 
-            services.AddTransient<IAutorRepository, AutorRepository>();
-            services.AddTransient<ILivroRepository, LivroRepository>();
-            services.AddTransient<IClienteRepository, ClienteRepository>();
-            services.AddTransient<ILocacaoRepository, LocacaoRepository>();
+            Infra.Configurador.Configurar(services, WebHostEnvironmen.IsDevelopment());
 
-            Domain.Configurador.Configurar(services);
-
-            services.AddDbContext<BibliotecaContext>(options =>
-            {
-                BibliotecaContext.Configurar(options, @"Server=.;Database=Biblioteca;Integrated Security=True", WebHostEnvironmen.IsDevelopment());
-            }); 
-            
-            // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API da Biblioteca", Version = "v1" });
@@ -80,7 +64,7 @@ namespace Biblioteca.Api
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<BibliotecaContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<Infra.BibliotecaContext>();
                 context.Database.Migrate();
             }
         }

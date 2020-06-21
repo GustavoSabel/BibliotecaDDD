@@ -1,4 +1,5 @@
-﻿using Biblioteca.Infra;
+﻿using Biblioteca.Domain.Common.Events;
+using Biblioteca.Infra;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -24,7 +25,7 @@ namespace Biblioteca.Tests.TempTest
                                 .UseLazyLoadingProxies()
                                 .Options;
 
-            var dbContext = new BibliotecaContext(options, Mock.Of<IMediator>());
+            var dbContext = new BibliotecaContext(options, Mock.Of<IBus>());
             return dbContext;
         }
     }

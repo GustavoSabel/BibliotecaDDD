@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Biblioteca.Domain.Common.Events;
+using System.Collections.Generic;
 
 namespace Biblioteca.Domain.Common
 {

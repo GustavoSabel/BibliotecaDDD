@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Biblioteca.Api.Dto
 {
     public class LocacaoDto
     {
+        public int Id { get; set; }
         public DateTime DataLocacao { get; set; }
         public DateTime DataPrevistaDevolucao { get; set; }
         public DateTime? DataDevolucao { get; set; }

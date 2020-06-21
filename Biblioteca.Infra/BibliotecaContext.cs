@@ -1,6 +1,6 @@
 ﻿using Biblioteca.Domain.Common;
+using Biblioteca.Domain.Common.Events;
 using Biblioteca.Domain.LivroContext;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ namespace Biblioteca.Infra
 {
     public class BibliotecaContext : DbContext
     {
-        private readonly IMediator _mediator;
+        private readonly IBus _bus;
 
-        public BibliotecaContext(DbContextOptions<BibliotecaContext> options, IMediator mediator) : base(options)
+        public BibliotecaContext(DbContextOptions<BibliotecaContext> options, IBus bus) : base(options)
         {
-            _mediator = mediator;
+            _bus = bus;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,7 +81,7 @@ namespace Biblioteca.Infra
             }
 
             foreach (var domainEvent in domainEvents)
-                await _mediator.Send(domainEvent, cancellationToken);
+                await _bus.Send(domainEvent, cancellationToken);
         }
 
         public static void Configurar(DbContextOptionsBuilder options, string connectionString, bool ativarLog)

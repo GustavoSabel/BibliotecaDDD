@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.Common;
+﻿using Biblioteca.Domain.Common.Events;
 
 namespace Biblioteca.Domain.LocacaoContext
 {
