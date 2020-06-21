@@ -10,6 +10,11 @@ namespace Biblioteca.Infra.Configuration.Livro
             builder.ToTable("LivroAutor", schema: "Livro").HasKey(x => x.Id);
             builder.HasOne(x => x.Autor).WithMany();
             builder.HasOne(x => x.Livro).WithMany(x => x.Autores);
+
+            builder.Property<int>("AutorId");
+            builder.Property<int>("LivroId");
+
+            builder.HasIndex("AutorId", "LivroId").IsUnique();
         }
     }
 }

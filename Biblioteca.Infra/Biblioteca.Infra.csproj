@@ -18,6 +18,8 @@
     <Compile Remove="Migrations\20200604235133_Teste.Designer.cs" />
     <Compile Remove="Migrations\20200615232024_AddCamposCliente.cs" />
     <Compile Remove="Migrations\20200615232024_AddCamposCliente.Designer.cs" />
+    <Compile Remove="Migrations\20200621200848_AddUniqueIndexEmLivroAutor.cs" />
+    <Compile Remove="Migrations\20200621200848_AddUniqueIndexEmLivroAutor.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
