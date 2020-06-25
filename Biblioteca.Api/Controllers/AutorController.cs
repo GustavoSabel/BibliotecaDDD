@@ -42,20 +42,20 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<AutorDto> Post([FromBody] SalvarAutorDto autorDto)
+        public async Task<AutorDto> Post([FromBody] SalvarAutorCommand autorDto)
         {
-            var autor = new Autor(autorDto.Nome, autorDto.DataNascimento);
+            var autor = new Autor(autorDto.Nome, autorDto.DataNascimento.Value);
             _autorRepository.Add(autor);
             await _autorRepository.SalvarAsync();
             return Converter(autor);
         }
 
         [HttpPut("{id}")]
-        public async Task<AutorDto> Put(int id, [FromBody] AtualizarAutorDto autorAlterado)
+        public async Task<AutorDto> Put(int id, [FromBody] AtualizarAutorCommand autorAlterado)
         {
             var autor = await _autorRepository.ObterPorIdAsync(id);
             autor.SetNome(autorAlterado.Nome);
-            autor.SetDataNascimento(autorAlterado.DataNascimento);
+            autor.SetDataNascimento(autorAlterado.DataNascimento.Value);
             await _autorRepository.SalvarAsync();
             return Converter(autor);
         }

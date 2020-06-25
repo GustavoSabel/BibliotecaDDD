@@ -7,5 +7,7 @@ namespace Biblioteca.Domain.Common
         public InvalidEntityException(string message) : base(message)
         {
         }
+
+        public override string? StackTrace => "";
     }
 }

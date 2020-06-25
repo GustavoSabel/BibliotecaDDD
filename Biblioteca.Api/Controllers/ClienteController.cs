@@ -38,7 +38,7 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ClienteDto> Post([FromBody] SalvarClienteDto value)
+        public async Task<ClienteDto> Post([FromBody] SalvarClienteCommand value)
         {
             var cpf = new Cpf(value.Cpf);
             var clieteExistente = await _clienteRepository.ObterPorCpfAsync(cpf);
@@ -54,7 +54,7 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ClienteDto> Put(int id, [FromBody] AtualizarClienteDto value)
+        public async Task<ClienteDto> Put(int id, [FromBody] AtualizarClienteCommand value)
         {
             var cliente = await _clienteRepository.ObterPorIdAsync(id);
             if (cliente == null)

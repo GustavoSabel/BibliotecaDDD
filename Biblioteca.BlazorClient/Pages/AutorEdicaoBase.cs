@@ -40,7 +40,7 @@ namespace Biblioteca.BlazorClient.Pages
             {
                 if (Autor.Id > 0)
                 {
-                    await AutorService.Put(Autor.Id, new AtualizarAutorDto
+                    await AutorService.Put(Autor.Id, new AtualizarAutorCommand
                     {
                         Nome = Autor.Nome,
                         DataNascimento = Autor.DataNascimento
@@ -50,7 +50,7 @@ namespace Biblioteca.BlazorClient.Pages
                 }
                 else
                 {
-                    Autor = await AutorService.Post(new SalvarAutorDto
+                    Autor = await AutorService.Post(new SalvarAutorCommand
                     {
                         Nome = Autor.Nome,
                         DataNascimento = Autor.DataNascimento

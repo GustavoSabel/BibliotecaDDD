@@ -15,10 +15,10 @@ namespace Biblioteca.BlazorClient.Services
         Task<AutorModel> ObterPorId(int id);
 
         [Post("/api/autor")]
-        Task<AutorModel> Post([Body] SalvarAutorDto autor);
+        Task<AutorModel> Post([Body] SalvarAutorCommand autor);
 
         [Put("/api/autor/{id}")]
-        Task Put(int id, [Body] AtualizarAutorDto autor);
+        Task Put(int id, [Body] AtualizarAutorCommand autor);
 
         [Delete("/api/autor/{id}")]
         Task Delete(int id);
