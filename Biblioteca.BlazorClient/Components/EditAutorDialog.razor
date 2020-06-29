@@ -4,18 +4,20 @@
     <Body>
         <EditForm Model="@Autor" OnValidSubmit="@HandleValidSubmit">
 
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <InputText @bind-Value="@Autor.Nome" id="nome" class="form-control"></InputText>
+                <ValidationMessage For="@(() => Autor.Nome)" />
+            </div>
+            <div class="form-group">
+                <label for="dataNascimento">Data Nascimento:</label>
+                <InputDate @bind-Value="@Autor.DataNascimento" id="dataNascimento" class="form-control"></InputDate>
+                <ValidationMessage For="@(() => Autor.DataNascimento)" />
+            </div>
+
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <div class="form-group row">
-                <label for="nome" class="col-sm-3">Nome:</label>
-                <InputText @bind-Value="@Autor.Nome" id="nome" class="form-control col-sm-8"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Autor.Nome)" />
-
-                <label for="dataNascimento" class="col-sm-3">Data Nascimento:</label>
-                <InputDate @bind-Value="@Autor.DataNascimento" id="dataNascimento" class="form-control col-sm-8"></InputDate>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Autor.DataNascimento)" />
-            </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
             @if (Autor.Id > 0)
             {

@@ -9,13 +9,14 @@
 }
 else
 {
-    <button @onclick="AddAutor" class="btn btn-primary">Novo</button>
-    <table class="table">
+    <button style="margin-bottom: 5px" @onclick="AddAutor" class="btn btn-primary">Novo</button>
+
+    <table class="table table-bordered table-sm">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Autor</th>
-                <th></th>
+                <th scope="col">Id</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +26,8 @@ else
                     <td>@autor.Id</td>
                     <td>@autor.Nome</td>
                     <td>
-                        <button @onclick="() => EditarAutor(autor)" class="btn btn-primary">Editar</button>
+                        <button @onclick="() => EditarAutor(autor)" class="btn btn-primary btn-sm">Editar</button>
+                        <button @onclick="() => ExcluirAutor(autor)" class="btn btn-danger btn-sm">Excluir</button>
                     </td>
                 </tr>
             }

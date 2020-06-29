@@ -34,6 +34,13 @@ namespace Biblioteca.BlazorClient.Pages
             await EditAutorDialog.Show(autor.Id);
         }
 
+        public async Task ExcluirAutor(AutorModel autor)
+        {
+            await AutorService.Delete(autor.Id);
+            Autores = (await AutorService.ObterAutores()).ToList();
+            StateHasChanged();
+        }
+
         protected void EditAutorDialog_Salvo(AutorModel autor)
         {
             var index = Autores.FindIndex(x => x.Id == autor.Id);
