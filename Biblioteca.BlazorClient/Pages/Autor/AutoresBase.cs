@@ -1,6 +1,6 @@
 ﻿using Biblioteca.BlazorClient.Model;
+using Biblioteca.BlazorClient.Pages.Autor;
 using Biblioteca.BlazorClient.Services;
-using Biblioteca.BlazorClient.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace Biblioteca.BlazorClient.Pages
             Autores = (await AutorService.ObterAutores()).ToList();
         }
 
-        protected async Task AddAutor()
+        public async Task AddAutor()
         {
             await EditAutorDialog.Show();
         }

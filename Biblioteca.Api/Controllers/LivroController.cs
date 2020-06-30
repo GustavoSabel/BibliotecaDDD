@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Biblioteca.Domain.LivroContext;
+using Biblioteca.Domain.LivroContext.Dtos;
+using Biblioteca.Domain.LivroContext.ValueObjects;
+using Biblioteca.Dto.Livro;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Biblioteca.Api.Dto;
-using Biblioteca.Domain.LivroContext;
-using Biblioteca.Domain.LivroContext.Dtos;
-using Biblioteca.Domain.LivroContext.ValueObjects;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.Api.Controllers
 {

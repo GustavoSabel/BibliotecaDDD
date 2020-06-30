@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Biblioteca.Api.Dto\Biblioteca.Api.Dto.csproj" />
+    <ProjectReference Include="..\Biblioteca.Dto\Biblioteca.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>

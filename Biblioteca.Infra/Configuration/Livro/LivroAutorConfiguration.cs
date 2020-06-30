@@ -8,7 +8,7 @@ namespace Biblioteca.Infra.Configuration.Livro
         public void Configure(EntityTypeBuilder<Domain.LivroContext.LivroAutor> builder)
         {
             builder.ToTable("LivroAutor", schema: "Livro").HasKey(x => x.Id);
-            builder.HasOne(x => x.Autor).WithMany();
+            builder.HasOne(x => x.Autor).WithMany().OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Livro).WithMany(x => x.Autores);
 
             builder.Property<int>("AutorId");

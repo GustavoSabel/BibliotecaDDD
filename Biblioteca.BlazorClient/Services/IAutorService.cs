@@ -1,5 +1,5 @@
-﻿using Biblioteca.Api.Dtos;
-using Biblioteca.BlazorClient.Model;
+﻿using Biblioteca.BlazorClient.Model;
+using Biblioteca.Dto.Livro;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace Biblioteca.BlazorClient.Services
         Task<AutorModel> Post([Body] SalvarAutorCommand autor);
 
         [Put("/api/autor/{id}")]
-        Task Put(int id, [Body] AtualizarAutorCommand autor);
+        Task Put(int id, [Body] SalvarAutorCommand autor);
 
         [Delete("/api/autor/{id}")]
         Task Delete(int id);

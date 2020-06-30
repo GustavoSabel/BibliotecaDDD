@@ -15,9 +15,8 @@ namespace Biblioteca.BlazorClient
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            //builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
             builder.Services.AddTransient(s => RestService.For<IAutorService>(CriarHttpClient()));
+            builder.Services.AddTransient(s => RestService.For<ILivroService>(CriarHttpClient()));
 
             await builder.Build().RunAsync();
         }

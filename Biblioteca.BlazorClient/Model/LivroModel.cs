@@ -1,0 +1,18 @@
+﻿using System.Collections.Generic;
+
+namespace Biblioteca.BlazorClient.Model
+{
+
+    public class LivroModel
+    {
+        public int Id { get; set; }
+        public string Titulo { get; set; }
+        public string SubTitulo { get; set; }
+        public int Ano { get; set; }
+        public string Serial { get; set; }
+        public string Descricao { get; set; }
+        public SituacaoLivro Situacao { get; set; }
+        public string Estado { get; set; } 
+        public List<AutorModel> Autores { get; set; } = new List<AutorModel>();
+    }
+}

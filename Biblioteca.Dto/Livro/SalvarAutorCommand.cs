@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Biblioteca.Api.Dtos
+namespace Biblioteca.Dto.Livro
 {
     public class SalvarAutorCommand
     {

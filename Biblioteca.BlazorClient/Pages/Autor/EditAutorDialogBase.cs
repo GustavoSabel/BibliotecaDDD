@@ -1,6 +1,6 @@
-﻿using Biblioteca.Api.Dtos;
-using Biblioteca.BlazorClient.Model;
+﻿using Biblioteca.BlazorClient.Model;
 using Biblioteca.BlazorClient.Services;
+using Biblioteca.Dto.Livro;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -40,7 +40,7 @@ namespace Biblioteca.BlazorClient.Components
         {
             if (Autor.Id > 0)
             {
-                await AutorService.Put(Autor.Id, new AtualizarAutorCommand
+                await AutorService.Put(Autor.Id, new SalvarAutorCommand
                 {
                     Nome = Autor.Nome,
                     DataNascimento = Autor.DataNascimento

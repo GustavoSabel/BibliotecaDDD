@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Biblioteca.Api.Dto\Biblioteca.Api.Dto.csproj" />
     <ProjectReference Include="..\Biblioteca.Domain\Biblioteca.Domain.csproj" />
+    <ProjectReference Include="..\Biblioteca.Dto\Biblioteca.Dto.csproj" />
     <ProjectReference Include="..\Biblioteca.Infra\Biblioteca.Infra.csproj" />
   </ItemGroup>
 

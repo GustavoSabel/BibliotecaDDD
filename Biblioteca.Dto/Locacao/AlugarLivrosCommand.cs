@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Biblioteca.Api.Dto
+namespace Biblioteca.Dto.Locacao
 {
     public class AlugarLivrosCommand
     {

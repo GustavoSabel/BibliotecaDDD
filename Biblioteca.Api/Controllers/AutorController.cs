@@ -1,6 +1,5 @@
-﻿using Biblioteca.Api.Dto;
-using Biblioteca.Api.Dtos;
-using Biblioteca.Domain.LivroContext;
+﻿using Biblioteca.Domain.LivroContext;
+using Biblioteca.Dto.Livro;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +50,7 @@ namespace Biblioteca.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<AutorDto> Put(int id, [FromBody] AtualizarAutorCommand autorAlterado)
+        public async Task<AutorDto> Put(int id, [FromBody] SalvarAutorCommand autorAlterado)
         {
             var autor = await _autorRepository.ObterPorIdAsync(id);
             autor.SetNome(autorAlterado.Nome);

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Biblioteca.Api.Dtos
+namespace Biblioteca.Dto.Locacao
 {
-    public class AtualizarClienteCommand
+    public class ClienteDto
     {
-        [Required]
-        [StringLength(300)]
+        public int Id { get; set; }
+
         public string Nome { get; set; }
 
-        [Required]
         public DateTime DataNascimento { get; set; }
+
+        public string Cpf { get; set; }
     }
 }

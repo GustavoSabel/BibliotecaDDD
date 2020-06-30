@@ -23,11 +23,11 @@ else
             @foreach (var autor in Autores)
             {
                 <tr>
-                    <td>@autor.Id</td>
+                    <td style="width:50px">@autor.Id</td>
                     <td>@autor.Nome</td>
-                    <td>
-                        <button @onclick="() => EditarAutor(autor)" class="btn btn-primary btn-sm">Editar</button>
-                        <button @onclick="() => ExcluirAutor(autor)" class="btn btn-danger btn-sm">Excluir</button>
+                    <td style="width:90px">
+                        <button @onclick="() => EditarAutor(autor)" class="btn btn-primary btn-sm oi oi-pencil"></button>
+                        <button @onclick="() => ExcluirAutor(autor)" class="btn btn-danger btn-sm oi oi-circle-x"></button>
                     </td>
                 </tr>
             }

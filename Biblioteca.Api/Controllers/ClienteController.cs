@@ -1,7 +1,7 @@
-﻿using Biblioteca.Api.Dtos;
-using Biblioteca.Domain.LocacaoContext;
+﻿using Biblioteca.Domain.LocacaoContext;
 using Biblioteca.Domain.LocacaoContext.Dtos;
 using Biblioteca.Domain.SharedKernel;
+using Biblioteca.Dto.Locacao;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Api", "Bibliotec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.BlazorClient", "Biblioteca.BlazorClient\Biblioteca.BlazorClient.csproj", "{376548C0-E893-4819-9658-6981E0CAF428}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Api.Dto", "Biblioteca.Api.Dto\Biblioteca.Api.Dto.csproj", "{A1F666C3-47F3-4EFB-AE8F-E9AAA1DF1054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Dto", "Biblioteca.Dto\Biblioteca.Dto.csproj", "{A1F666C3-47F3-4EFB-AE8F-E9AAA1DF1054}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
