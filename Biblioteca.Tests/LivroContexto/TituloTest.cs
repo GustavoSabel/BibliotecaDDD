@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.LivroContext.ValueObjects;
+using Biblioteca.Domain.LivroContext.ValueObjects;
 using FluentAssertions;
 using Xunit;
 using Xunit.Sdk;

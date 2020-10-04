@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.Common.Events;
+using Biblioteca.Domain.Common.Events;
 using Biblioteca.Infra;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

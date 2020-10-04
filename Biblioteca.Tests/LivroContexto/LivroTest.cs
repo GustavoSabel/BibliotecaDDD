@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.LivroContext;
+using Biblioteca.Domain.LivroContext;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;

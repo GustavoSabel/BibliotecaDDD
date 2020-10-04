@@ -21,7 +21,7 @@ namespace Biblioteca.Tests
             var criarCpf = new Action(() => new Cpf(""));
             criarCpf
                 .Should().Throw<Exception>().Which.Message
-                .Should().Contain("n„o informado");
+                .Should().Contain("n√£o informado");
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Biblioteca.Tests
             var criarCpf = new Action(() => new Cpf(null));
             criarCpf
                 .Should().Throw<Exception>().Which.Message
-                .Should().Contain("n„o informado");
+                .Should().Contain("n√£o informado");
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace Biblioteca.Tests
             var criarCpf = new Action(() => new Cpf("1111111111"));
             criarCpf
                 .Should().Throw<Exception>().Which.Message
-                .Should().Contain("CPF").And.Contain("inv·lido");
+                .Should().Contain("CPF").And.Contain("inv√°lido");
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Biblioteca.Tests
             var criarCpf = new Action(() => new Cpf("1111111111"));
             criarCpf
                 .Should().Throw<Exception>().Which.Message
-                .Should().Contain("CPF").And.Contain("inv·lido");
+                .Should().Contain("CPF").And.Contain("inv√°lido");
         }
     }
 }

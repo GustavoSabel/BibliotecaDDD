@@ -1,4 +1,4 @@
-﻿using Biblioteca.Domain.LocacaoContext;
+using Biblioteca.Domain.LocacaoContext;
 using Biblioteca.Domain.SharedKernel;
 using FluentAssertions;
 using FluentAssertions.Execution;
