@@ -4,6 +4,8 @@ Sistema para gerenciar uma biblioteca. Criei esse projeto para praticar os conce
 
 **Ainda está em desenvolvimento.** :hammer:
 
+![.NET Core](https://github.com/GustavoSabel/BibliotecaDDD/workflows/.NET%20Core/badge.svg)
+
 ## Tecnologias
  - .NET Core 3
  - Entity Framework Core
