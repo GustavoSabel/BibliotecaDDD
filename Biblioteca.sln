@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Blazor", "Biblioteca.Blazor\Biblioteca.Blazor.csproj", "{93091DAD-B844-4D7E-B9BA-F73D58D5D33D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Domain", "Biblioteca.Domain\Biblioteca.Domain.csproj", "{A2374517-F728-4E97-A5D0-29DCDD22AA93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Tests", "Biblioteca.Tests\Biblioteca.Tests.csproj", "{80CDF9D2-EB50-40EB-977B-C66873E8AE77}"
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93091DAD-B844-4D7E-B9BA-F73D58D5D33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93091DAD-B844-4D7E-B9BA-F73D58D5D33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93091DAD-B844-4D7E-B9BA-F73D58D5D33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93091DAD-B844-4D7E-B9BA-F73D58D5D33D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2374517-F728-4E97-A5D0-29DCDD22AA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2374517-F728-4E97-A5D0-29DCDD22AA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2374517-F728-4E97-A5D0-29DCDD22AA93}.Release|Any CPU.ActiveCfg = Release|Any CPU

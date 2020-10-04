@@ -8,7 +8,7 @@ namespace Biblioteca.BlazorClient.Components
         public RenderFragment Body { get; set; }
 
         protected bool ShowDialog { get; set; }
-
+        
         [Parameter]
         public string Titulo { get; set; }
 
